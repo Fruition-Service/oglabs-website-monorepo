@@ -5,7 +5,7 @@ OG Labs is a digital transformation partner for APAC SMBs, specialising in HubSp
 ## Stack
 - **Framework**: Next.js 16 (App Router) with TypeScript
 - **Styling**: Tailwind CSS v4 + shadcn/ui
-- **Deployment**: Cloudflare Workers via @opennextjs/cloudflare
+- **Deployment**: Vercel (sin1 region)
 - **Fonts**: Poppins (headings/body) + JetBrains Mono (accent)
 - **Icons**: Lucide React
 
@@ -16,9 +16,7 @@ npm run dev
 ```
 
 ## Deployment
-```bash
-npm run deploy
-```
+Pushes to `main` deploy automatically via Vercel. Config lives in `vercel.json`.
 
 ## Conventions
 - All pages use App Router (src/app)

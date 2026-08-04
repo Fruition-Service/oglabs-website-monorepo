@@ -6,7 +6,7 @@ Digital transformation partner for APAC SMBs — HubSpot, ClickUp & AI automatio
 
 - **Next.js 16** (App Router) with TypeScript
 - **Tailwind CSS v4** with shadcn/ui components
-- **Cloudflare Workers** via @opennextjs/cloudflare
+- **Vercel** for hosting (sin1 region)
 
 ## Getting Started
 
@@ -24,8 +24,6 @@ npm run build
 npm run start
 ```
 
-## Deploy to Cloudflare
+## Deploy
 
-```bash
-npm run deploy
-```
+Pushes to `main` deploy automatically via Vercel. Config lives in `vercel.json`.
