@@ -1,29 +1,17 @@
-# OG Labs Website
+# orangegrowth.io — static Framer export
 
-Digital transformation partner for APAC SMBs — HubSpot, ClickUp & AI automation.
+Source: https://oglabs.framer.website
+Mode: full-site static mirror
 
-## Tech Stack
+Page HTML is mirrored from the published Framer site; all CSS/JS/fonts/media
+load from Framer's public CDNs (framerusercontent.com, app.framerstatic.com).
 
-- **Next.js 16** (App Router) with TypeScript
-- **Tailwind CSS v4** with shadcn/ui components
-- **Vercel** for hosting (sin1 region)
+## Hosting
 
-## Getting Started
+Fully static — serve the directory as-is (Vercel static, Netlify, Cloudflare
+Pages, nginx, etc.). No build step, no rewrites needed.
 
-```bash
-npm install
-npm run dev
-```
+## Updating
 
-Open [http://localhost:3000](http://localhost:3000).
-
-## Build
-
-```bash
-npm run build
-npm run start
-```
-
-## Deploy
-
-Pushes to `main` deploy automatically via Vercel. Config lives in `vercel.json`.
+Re-run the mirror against https://oglabs.framer.website after republishing in
+Framer.
