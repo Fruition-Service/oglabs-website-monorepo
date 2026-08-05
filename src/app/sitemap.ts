@@ -27,6 +27,10 @@ const PAGES = [
   "/blogs/introducing-og-labs-digital-transformation-partner-apac",
   "/blogs/how-hubspot-and-clickup-help-teams-work-smarter-not-harder",
   "/blogs/why-integrated-systems-beat-disconnected-tool-stacks",
+  "/blogs/let-ai-agents-handle-the-busywork-your-team-hates",
+  "/blogs/why-apac-revenue-teams-are-standardising-on-hubspot",
+  "/blogs/how-automation-aligns-sales-operations-and-finance",
+  "/blogs/reclaiming-time-how-process-automation-frees-smb-teams",
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {

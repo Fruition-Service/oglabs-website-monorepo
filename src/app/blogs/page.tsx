@@ -34,6 +34,42 @@ const POSTS = [
     role: "Principal Engineer",
     excerpt: "Connected workflows outperform tool stacks where data doesn't flow. Learn why integration is the key to scalable operations.",
   },
+  {
+    slug: "let-ai-agents-handle-the-busywork-your-team-hates",
+    title: "Let AI Agents Handle the Busywork Your Team Hates",
+    tag: "Growth",
+    date: "Jan 8, 2026",
+    author: "Edward Zhang",
+    role: "Principal Engineer",
+    excerpt: "Agentic AI workflows built on Make and n8n take the repetitive, rules-based work off your team's plate, so people focus on what actually matters.",
+  },
+  {
+    slug: "why-apac-revenue-teams-are-standardising-on-hubspot",
+    title: "Why APAC Revenue Teams Are Standardising on HubSpot",
+    tag: "Growth",
+    date: "Jan 1, 2026",
+    author: "Edward Zhang",
+    role: "Principal Engineer",
+    excerpt: "Growing revenue teams need one source of truth, not five disconnected tools. Here's why HubSpot, set up right, becomes the backbone.",
+  },
+  {
+    slug: "how-automation-aligns-sales-operations-and-finance",
+    title: "How Automation Aligns Sales, Operations, and Finance",
+    tag: "Growth",
+    date: "Dec 25, 2025",
+    author: "Edward Zhang",
+    role: "Principal Engineer",
+    excerpt: "When sales, delivery, and finance work from different systems, alignment becomes manual labour. Integration fixes it.",
+  },
+  {
+    slug: "reclaiming-time-how-process-automation-frees-smb-teams",
+    title: "Reclaiming Time: How Process Automation Frees SMB Teams",
+    tag: "Growth",
+    date: "Dec 18, 2025",
+    author: "Edward Zhang",
+    role: "Principal Engineer",
+    excerpt: "Time is the resource you can't buy back. Process automation gives it back to your team by removing the repetitive work that fills the day.",
+  },
 ]
 
 export default function Blogs() {
