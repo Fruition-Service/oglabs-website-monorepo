@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-08-28T07:20:20Z",
+  "generated_at": "2026-08-28T07:23:04Z",
   "source": {
     "url": "https://oglabs.framer.website",
     "build_marker": "eb3d845",
@@ -9,10 +9,10 @@
     "content_fingerprint": "c1aa9e5b7db7491d79526052dc6a568f0873bc274218d63316b3f4c00adf35b0"
   },
   "sync": {
-    "synced_at": "2026-08-28T07:20:20Z",
+    "synced_at": "2026-08-28T07:23:04Z",
     "result": "no-change",
     "trigger": "workflow_dispatch",
-    "run_url": "https://github.com/Fruition-Service/oglabs-website-monorepo/actions/runs/33151052233",
+    "run_url": "https://github.com/Fruition-Service/oglabs-website-monorepo/actions/runs/33151223190",
     "commit": ""
   },
   "mirror": {
