@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated_at": "2026-08-28T07:23:04Z",
+  "generated_at": "2026-08-28T07:25:35Z",
   "source": {
     "url": "https://oglabs.framer.website",
     "build_marker": "eb3d845",
@@ -9,11 +9,11 @@
     "content_fingerprint": "c1aa9e5b7db7491d79526052dc6a568f0873bc274218d63316b3f4c00adf35b0"
   },
   "sync": {
-    "synced_at": "2026-08-28T07:23:04Z",
+    "synced_at": "2026-08-28T07:25:35Z",
     "result": "no-change",
     "trigger": "workflow_dispatch",
-    "run_url": "https://github.com/Fruition-Service/oglabs-website-monorepo/actions/runs/33151223190",
-    "commit": ""
+    "run_url": "https://github.com/Fruition-Service/oglabs-website-monorepo/actions/runs/33151366301",
+    "commit": "ed8de4fc547c41538b152d3811370471abe1d884"
   },
   "mirror": {
     "route_count": 31,
@@ -26,8 +26,8 @@
     "production_checks": 1415,
     "production_ok": true,
     "deployment_status": "verified",
-    "deployment_id": "",
-    "deployment_url": "",
+    "deployment_id": "6137339192",
+    "deployment_url": "https://oglabs-website-1w4ycsr0y-kelin-studio.vercel.app",
     "hosts": [
       "oglabs.io",
       "www.oglabs.io"
