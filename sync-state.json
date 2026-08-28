@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "generated_at": "2026-08-28T07:20:20Z",
+  "source": {
+    "url": "https://oglabs.framer.website",
+    "build_marker": "eb3d845",
+    "publish_time": "2026-08-28T06:47:00Z",
+    "publish_stamp_raw": "Aug 28, 2026, 6:47 AM UTC",
+    "content_fingerprint": "c1aa9e5b7db7491d79526052dc6a568f0873bc274218d63316b3f4c00adf35b0"
+  },
+  "sync": {
+    "synced_at": "2026-08-28T07:20:20Z",
+    "result": "no-change",
+    "trigger": "workflow_dispatch",
+    "run_url": "https://github.com/Fruition-Service/oglabs-website-monorepo/actions/runs/33151052233",
+    "commit": ""
+  },
+  "mirror": {
+    "route_count": 31,
+    "local_asset_references": 142,
+    "tracked_asset_files": 248
+  },
+  "verification": {
+    "parity_checks": 763,
+    "parity_ok": true,
+    "production_checks": 1415,
+    "production_ok": true,
+    "deployment_status": "verified",
+    "deployment_id": "",
+    "deployment_url": "",
+    "hosts": [
+      "oglabs.io",
+      "www.oglabs.io"
+    ]
+  }
+}
