@@ -204,10 +204,14 @@ jobs:
 
       - name: Wait for the Vercel production deployment
         id: deploy
-        if: steps.commit.outputs.mirror_changed == 'true'
+        if: steps.decide.outputs.changed == 'true' && env.MODE == 'sync'
         run: |
           set -euo pipefail
-          sha='${{ steps.commit.outputs.sha }}'
+          # When the mirror changed this is the commit we just pushed and a
+          # deployment is mandatory. When it did not, this is the commit whose
+          # content is already live, so a missing record is not a failure.
+          sha='${{ steps.commit.outputs.sha || github.sha }}'
+          required='${{ steps.commit.outputs.mirror_changed }}'
           delay=10
           for attempt in 1 2 3 4 5 6 7 8 9 10; do
             id=$(gh api "repos/${{ github.repository }}/deployments?sha=$sha" --jq '.[0].id // empty' || true)
@@ -231,8 +235,11 @@ jobs:
             sleep "$delay"
             delay=$(( delay < 60 ? delay * 2 : 60 ))
           done
-          echo "No successful deployment appeared for $sha. The GitHub to Vercel integration did not deploy this push." >&2
-          exit 1
+          if [ "$required" = 'true' ]; then
+            echo "No successful deployment appeared for $sha. The GitHub to Vercel integration did not deploy this push." >&2
+            exit 1
+          fi
+          echo "No deployment record for $sha, and none was required on a no change run."
 
       - name: Verify production
         id: production

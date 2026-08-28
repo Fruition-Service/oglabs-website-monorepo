@@ -27,6 +27,16 @@ def utcnow() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def head_sha(mirror_dir: str) -> str:
+    try:
+        return subprocess.run(
+            ["git", "-C", mirror_dir, "rev-parse", "HEAD"],
+            capture_output=True, text=True, check=True,
+        ).stdout.strip()
+    except Exception:
+        return ""
+
+
 def count_tracked_assets(mirror_dir: str) -> int:
     try:
         out = subprocess.run(
@@ -57,6 +67,10 @@ def main() -> int:
     parity = json.loads(Path(args.parity).read_text())
     production = json.loads(Path(args.production).read_text()) if args.production else {}
 
+    # On a no change run there is no new mirror commit, so the manifest records
+    # the commit whose content is actually live.
+    commit = args.commit or head_sha(args.mirror_dir)
+
     manifest = {
         "schema": SCHEMA,
         "generated_at": utcnow(),
@@ -72,7 +86,7 @@ def main() -> int:
             "result": args.change,
             "trigger": args.trigger,
             "run_url": args.run_url,
-            "commit": args.commit,
+            "commit": commit,
         },
         "mirror": {
             "route_count": source.get("route_count", 0),
