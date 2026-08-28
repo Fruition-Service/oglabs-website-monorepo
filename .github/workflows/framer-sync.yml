@@ -1,0 +1,338 @@
+# Keep the static mirror in this repository in step with the published Framer
+# source, and let the existing GitHub to Vercel integration ship the result.
+#
+# Design notes that matter for anyone changing this file:
+#
+#   * Detection is read only and does not trust timestamps. Framer rewrites the
+#     publish stamp on every republish even when nothing changed, and it has
+#     been observed to keep the same generator build id across builds whose
+#     output genuinely differs. The decision is made on a normalized content
+#     fingerprint over every sitemap route.
+#   * The export pipeline (export.sh) only runs once a real content change has
+#     been detected.
+#   * Nothing is pushed unless export and parity validation both pass. Any
+#     failure leaves the repository and production untouched.
+#   * Deployment is not performed here. There is no Vercel token in this
+#     workflow. The repository's existing GitHub to Vercel integration is a
+#     GitHub App that reacts to the push event, so a push made with the
+#     built in GITHUB_TOKEN still produces a production deployment. That is
+#     verified on every run: the workflow waits for the Vercel deployment for
+#     the exact pushed sha and fails if it never arrives.
+#   * A real change produces two commits: the mirror content, then the state
+#     manifest once production has been verified. The manifest records the
+#     content commit and the verification result, which it could not do if it
+#     were part of that same commit.
+
+name: Framer source sync
+
+on:
+  schedule:
+    # Every 15 minutes. GitHub queues scheduled runs on a best effort basis.
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'sync runs the full pipeline. check detects only and never writes.'
+        type: choice
+        options: [sync, check]
+        default: sync
+      force_export:
+        description: 'Run the export even when no source change is detected.'
+        type: boolean
+        default: false
+
+# One sync at a time. Overlapping runs would race on the same branch and could
+# produce duplicate or conflicting mirror commits. Queued rather than cancelled
+# so a run is never killed between commit and push.
+concurrency:
+  group: framer-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write      # commit and push the generated mirror and state manifest
+  deployments: read    # read the Vercel deployment created for the pushed sha
+
+jobs:
+  sync:
+    name: Detect, export, verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      MODE: ${{ inputs.mode || 'sync' }}
+      FORCE_EXPORT: ${{ inputs.force_export || false }}
+      DIAG: ${{ github.workspace }}/sync-diagnostics
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Check out the mirror
+        uses: actions/checkout@v4
+
+      - name: Prepare working directories
+        run: |
+          echo "SOURCE_DIR=$RUNNER_TEMP/framer-source" >> "$GITHUB_ENV"
+          mkdir -p "$DIAG" "$RUNNER_TEMP/framer-source"
+          echo "trigger=${{ github.event_name }} mode=$MODE force_export=$FORCE_EXPORT" | tee -a "$DIAG/run.txt"
+
+      - name: Probe the Framer source (read only)
+        id: probe
+        run: |
+          set -euo pipefail
+          ./scripts/framer-source-state.sh --out "$SOURCE_DIR" 2>&1 | tee "$DIAG/probe.log"
+          python3 scripts/source-fingerprint.py --source-dir "$SOURCE_DIR" --summary \
+            > "$DIAG/source-state.json"
+          cat "$DIAG/source-state.json"
+          {
+            echo "build_marker=$(jq -r .build_marker "$DIAG/source-state.json")"
+            echo "publish_time=$(jq -r .publish_time "$DIAG/source-state.json")"
+            echo "fingerprint=$(jq -r .content_fingerprint "$DIAG/source-state.json")"
+            echo "route_count=$(jq -r .route_count "$DIAG/source-state.json")"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Decide whether the source really changed
+        id: decide
+        run: |
+          set -euo pipefail
+          new_fp='${{ steps.probe.outputs.fingerprint }}'
+          old_fp=''
+          old_routes=''
+          if [ -f sync-state.json ]; then
+            old_fp=$(jq -r '.source.content_fingerprint // ""' sync-state.json)
+            old_routes=$(jq -r '.mirror.route_count // ""' sync-state.json)
+          fi
+          reason=''
+          changed=false
+          if [ ! -f sync-state.json ]; then
+            changed=true; reason='no state manifest yet, bootstrapping'
+          elif [ "$new_fp" != "$old_fp" ]; then
+            changed=true; reason='content fingerprint differs from the last synced source'
+          elif [ "$old_routes" != '${{ steps.probe.outputs.route_count }}' ]; then
+            changed=true; reason='route count differs from the last synced source'
+          else
+            reason='content fingerprint and route set identical to the last synced source'
+          fi
+          if [ "$FORCE_EXPORT" = 'true' ]; then
+            changed=true; reason="$reason (force_export requested)"
+          fi
+          echo "changed=$changed"   >> "$GITHUB_OUTPUT"
+          echo "reason=$reason"     >> "$GITHUB_OUTPUT"
+          echo "previous_fingerprint=$old_fp" >> "$GITHUB_OUTPUT"
+          echo "source changed: $changed ($reason)" | tee -a "$DIAG/run.txt"
+
+      - name: Report a no-change run and stop
+        if: steps.decide.outputs.changed != 'true'
+        run: |
+          {
+            echo '## Framer sync: no change'
+            echo
+            echo "The published source is identical to the mirror. Nothing was exported, committed or deployed."
+            echo
+            echo '| field | value |'
+            echo '| --- | --- |'
+            echo "| result | **no change** |"
+            echo "| reason | ${{ steps.decide.outputs.reason }} |"
+            echo "| source build | \`${{ steps.probe.outputs.build_marker }}\` |"
+            echo "| source published | ${{ steps.probe.outputs.publish_time }} |"
+            echo "| content fingerprint | \`${{ steps.probe.outputs.fingerprint }}\` |"
+            echo "| routes | ${{ steps.probe.outputs.route_count }} |"
+            echo "| trigger | ${{ github.event_name }} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Stop here in check mode
+        if: steps.decide.outputs.changed == 'true' && env.MODE == 'check'
+        run: |
+          {
+            echo '## Framer sync: change detected (check mode)'
+            echo
+            echo "A source change was detected but check mode was requested, so nothing was exported, committed or deployed."
+            echo
+            echo '| field | value |'
+            echo '| --- | --- |'
+            echo "| result | **change detected, no action** |"
+            echo "| reason | ${{ steps.decide.outputs.reason }} |"
+            echo "| source build | \`${{ steps.probe.outputs.build_marker }}\` |"
+            echo "| source published | ${{ steps.probe.outputs.publish_time }} |"
+            echo "| new fingerprint | \`${{ steps.probe.outputs.fingerprint }}\` |"
+            echo "| previous fingerprint | \`${{ steps.decide.outputs.previous_fingerprint }}\` |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Run the export pipeline
+        id: export
+        if: steps.decide.outputs.changed == 'true' && env.MODE == 'sync'
+        run: |
+          set -euo pipefail
+          ./export.sh 2>&1 | tee "$DIAG/export.log"
+
+      - name: Validate parity before committing anything
+        id: parity
+        if: steps.decide.outputs.changed == 'true' && env.MODE == 'sync'
+        run: |
+          set -euo pipefail
+          python3 scripts/verify-parity.py \
+            --source-dir "$SOURCE_DIR" --mirror-dir . \
+            --json "$DIAG/parity.json" 2>&1 | tee "$DIAG/parity.log"
+          echo "checks=$(jq -r .checks "$DIAG/parity.json")" >> "$GITHUB_OUTPUT"
+          echo "local_asset_refs=$(jq -r .local_asset_refs "$DIAG/parity.json")" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push the mirror
+        id: commit
+        if: steps.decide.outputs.changed == 'true' && env.MODE == 'sync'
+        run: |
+          set -euo pipefail
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          # Only ever stage generated mirror files. Never `git add -A`, so any
+          # unrelated file that happens to be in the tree cannot be swept in.
+          git add -u -- '*.html'
+          git add -- assets sites
+
+          if git diff --cached --quiet; then
+            echo 'mirror_changed=false' >> "$GITHUB_OUTPUT"
+            echo 'Export produced no mirror change.' | tee -a "$DIAG/run.txt"
+            exit 0
+          fi
+
+          git diff --cached --stat | tee "$DIAG/mirror-diff.txt"
+          git commit -m "Re-export from Framer (build ${{ steps.probe.outputs.build_marker }}, published ${{ steps.probe.outputs.publish_time }})" \
+                     -m "Automated by the framer-sync workflow. Parity before commit: ${{ steps.probe.outputs.route_count }} routes, ${{ steps.parity.outputs.local_asset_refs }} local asset references, ${{ steps.parity.outputs.checks }} checks, zero failures." \
+                     -m "Run: $RUN_URL"
+          git push origin HEAD:${{ github.ref_name }}
+          echo "mirror_changed=true" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "files=$(git diff --name-only HEAD~1 HEAD | wc -l | tr -d ' ')" >> "$GITHUB_OUTPUT"
+
+      - name: Wait for the Vercel production deployment
+        id: deploy
+        if: steps.commit.outputs.mirror_changed == 'true'
+        run: |
+          set -euo pipefail
+          sha='${{ steps.commit.outputs.sha }}'
+          delay=10
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            id=$(gh api "repos/${{ github.repository }}/deployments?sha=$sha" --jq '.[0].id // empty' || true)
+            if [ -n "$id" ]; then
+              state=$(gh api "repos/${{ github.repository }}/deployments/$id/statuses" --jq '.[0].state // empty' || true)
+              url=$(gh api "repos/${{ github.repository }}/deployments/$id/statuses" --jq '.[0].environment_url // empty' || true)
+              echo "attempt $attempt: deployment $id state=${state:-pending}"
+              if [ "$state" = 'success' ]; then
+                echo "id=$id"   >> "$GITHUB_OUTPUT"
+                echo "url=$url" >> "$GITHUB_OUTPUT"
+                echo "Deployment $id succeeded for $sha" | tee -a "$DIAG/run.txt"
+                exit 0
+              fi
+              if [ "$state" = 'failure' ] || [ "$state" = 'error' ]; then
+                echo "Deployment $id reported $state for $sha" >&2
+                exit 1
+              fi
+            else
+              echo "attempt $attempt: no deployment for $sha yet"
+            fi
+            sleep "$delay"
+            delay=$(( delay < 60 ? delay * 2 : 60 ))
+          done
+          echo "No successful deployment appeared for $sha. The GitHub to Vercel integration did not deploy this push." >&2
+          exit 1
+
+      - name: Verify production
+        id: production
+        if: steps.decide.outputs.changed == 'true' && env.MODE == 'sync'
+        run: |
+          set -euo pipefail
+          python3 scripts/verify-production.py \
+            --source-dir "$SOURCE_DIR" \
+            --json "$DIAG/production.json" --log "$DIAG/production.log" 2>&1 \
+            | tee "$DIAG/production-stdout.log"
+          echo "checks=$(jq -r .checks "$DIAG/production.json")" >> "$GITHUB_OUTPUT"
+
+      - name: Record the state manifest
+        id: manifest
+        if: steps.decide.outputs.changed == 'true' && env.MODE == 'sync'
+        run: |
+          set -euo pipefail
+          change=no-change
+          if [ '${{ steps.commit.outputs.mirror_changed }}' = 'true' ]; then change=changed; fi
+          python3 scripts/write-state-manifest.py \
+            --out sync-state.json \
+            --source-state "$DIAG/source-state.json" \
+            --parity "$DIAG/parity.json" \
+            --production "$DIAG/production.json" \
+            --mirror-dir . \
+            --commit '${{ steps.commit.outputs.sha }}' \
+            --deployment-id '${{ steps.deploy.outputs.id }}' \
+            --deployment-url '${{ steps.deploy.outputs.url }}' \
+            --trigger '${{ github.event_name }}' \
+            --run-url "$RUN_URL" \
+            --change "$change"
+
+          cp sync-state.json "$DIAG/sync-state.json"
+
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- sync-state.json
+          if git diff --cached --quiet; then
+            echo 'manifest_changed=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git commit -m 'Update Framer sync state manifest' \
+                     -m "Source build ${{ steps.probe.outputs.build_marker }}, published ${{ steps.probe.outputs.publish_time }}. Production verified with ${{ steps.production.outputs.checks }} checks." \
+                     -m "Run: $RUN_URL"
+          git push origin HEAD:${{ github.ref_name }}
+          echo 'manifest_changed=true' >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Job summary
+        if: always() && steps.decide.outputs.changed == 'true' && env.MODE == 'sync'
+        run: |
+          state='failure'
+          if [ '${{ job.status }}' = 'success' ]; then
+            if [ '${{ steps.commit.outputs.mirror_changed }}' = 'true' ]; then state='changed and deployed'; else state='no change'; fi
+          fi
+          {
+            echo "## Framer sync: $state"
+            echo
+            echo '| field | value |'
+            echo '| --- | --- |'
+            echo "| result | **$state** |"
+            echo "| detection reason | ${{ steps.decide.outputs.reason }} |"
+            echo "| source build | \`${{ steps.probe.outputs.build_marker }}\` |"
+            echo "| source published | ${{ steps.probe.outputs.publish_time }} |"
+            echo "| content fingerprint | \`${{ steps.probe.outputs.fingerprint }}\` |"
+            echo "| routes | ${{ steps.probe.outputs.route_count }} |"
+            echo "| parity checks | ${{ steps.parity.outputs.checks }} |"
+            echo "| local asset references | ${{ steps.parity.outputs.local_asset_refs }} |"
+            echo "| mirror commit | ${{ steps.commit.outputs.sha || 'none' }} |"
+            echo "| files in mirror commit | ${{ steps.commit.outputs.files || '0' }} |"
+            echo "| deployment | ${{ steps.deploy.outputs.id || 'none' }} |"
+            echo "| deployment url | ${{ steps.deploy.outputs.url || 'none' }} |"
+            echo "| production checks | ${{ steps.production.outputs.checks || '0' }} |"
+            echo "| manifest commit | ${{ steps.manifest.outputs.sha || 'none' }} |"
+            echo "| trigger | ${{ github.event_name }} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Collect failure diagnostics
+        if: failure()
+        run: |
+          git status --porcelain=v1 > "$DIAG/git-status.txt" 2>&1 || true
+          git log --oneline -5 > "$DIAG/git-log.txt" 2>&1 || true
+          git diff --stat > "$DIAG/git-diff-stat.txt" 2>&1 || true
+          cp "$SOURCE_DIR/routes.txt" "$DIAG/routes.txt" 2>/dev/null || true
+          {
+            echo '## Framer sync: FAILED'
+            echo
+            echo 'Nothing further was pushed. See the sync-diagnostics artifact on this run.'
+            echo
+            echo "- detection reason: ${{ steps.decide.outputs.reason }}"
+            echo "- source build: ${{ steps.probe.outputs.build_marker }}"
+            echo "- source published: ${{ steps.probe.outputs.publish_time }}"
+            echo "- mirror commit: ${{ steps.commit.outputs.sha || 'none' }}"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sync-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ github.workspace }}/sync-diagnostics
+          retention-days: 14
+          if-no-files-found: warn
