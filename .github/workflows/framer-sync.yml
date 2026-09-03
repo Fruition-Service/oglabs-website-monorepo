@@ -182,9 +182,17 @@ jobs:
           git config user.name  'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
 
-          # Only ever stage generated mirror files. Never `git add -A`, so any
-          # unrelated file that happens to be in the tree cannot be swept in.
-          git add -u -- '*.html'
+          # Only ever stage generated mirror files. The '*.html' pathspec is what
+          # keeps unrelated files out of the commit, so `-A` is safe here and is
+          # scoped exactly as `-u` was.
+          #
+          # `-u` stages updates to tracked files ONLY, so a brand new route --
+          # the first export after a blog post is published -- was written by
+          # export.sh, passed parity, and then silently dropped at staging. The
+          # mirror deployed without the page and "Verify production" caught it
+          # as a 404. `-A` also stages deletions, so an unpublished post is now
+          # removed from the mirror instead of lingering.
+          git add -A -- '*.html'
           git add -- assets sites
 
           if git diff --cached --quiet; then
