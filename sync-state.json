@@ -1,24 +1,24 @@
 {
   "schema": 1,
-  "generated_at": "2026-09-03T15:08:22Z",
+  "generated_at": "2026-09-07T07:00:36Z",
   "source": {
     "url": "https://oglabs.framer.website",
-    "build_marker": "8a671e2",
-    "publish_time": "2026-09-03T15:04:00Z",
-    "publish_stamp_raw": "Sep 3, 2026, 3:04 PM UTC",
-    "content_fingerprint": "0ecea18cab395166690e2fee1a9cf045d1082f1052155bc9afb6df1efe862ff9"
+    "build_marker": "fd0ec14",
+    "publish_time": "2026-09-07T06:58:00Z",
+    "publish_stamp_raw": "Sep 7, 2026, 6:58 AM UTC",
+    "content_fingerprint": "3443362821d784731edb07080f0d01f27b821d2aa50bd041700f063cfeb3783c"
   },
   "sync": {
-    "synced_at": "2026-09-03T15:08:22Z",
+    "synced_at": "2026-09-07T07:00:36Z",
     "result": "changed",
     "trigger": "workflow_dispatch",
-    "run_url": "https://github.com/Fruition-Service/oglabs-website-monorepo/actions/runs/33770688472",
-    "commit": "5ad43662c29784bd4df6a0258ac05f2e2d22c01f"
+    "run_url": "https://github.com/Fruition-Service/oglabs-website-monorepo/actions/runs/34093237858",
+    "commit": "128daf1893322960c40cc7151b0af8864405dfa0"
   },
   "mirror": {
     "route_count": 33,
     "local_asset_references": 142,
-    "tracked_asset_files": 392
+    "tracked_asset_files": 399
   },
   "verification": {
     "parity_checks": 803,
@@ -26,8 +26,8 @@
     "production_checks": 1483,
     "production_ok": true,
     "deployment_status": "verified",
-    "deployment_id": "6246741594",
-    "deployment_url": "https://oglabs-website-jxyphnzn6-kelin-studio.vercel.app",
+    "deployment_id": "6303614610",
+    "deployment_url": "https://oglabs-website-fvjc33h15-kelin-studio.vercel.app",
     "hosts": [
       "oglabs.io",
       "www.oglabs.io"
