@@ -74,6 +74,49 @@ while read -r p; do
   count=$((count+1))
 done <<< "$paths"
 
+# 2b. Drop the route files the source no longer publishes.
+#
+# Step 2 only ever writes the routes named in the current sitemap, so a page
+# deleted or unpublished in Framer used to linger in the mirror forever. That
+# is not cosmetic. verify-parity.py fails the run on an only-in-mirror route,
+# so one deletion in Framer deadlocked the entire pipeline: every later publish
+# was detected, exported, and then refused at the parity gate until somebody
+# removed the orphan by hand.
+#
+# Scope: html outside assets/, sites/ and scripts/ is exactly the mirror's own
+# route set. scripts/ is excluded because the test fixtures live under it and
+# are not routes. The caller stages with `git add -A -- '*.html'`, which picks
+# up these deletions.
+#
+# A truncated sitemap fetch would look exactly like a mass deletion, so refuse
+# to prune an implausible share of the site and make a human look instead.
+# Both conditions have to hold: a handful of pages is always a plausible
+# editorial deletion however small the site is, and a large share is only
+# plausible when it is also a small count.
+sort -u /tmp/og_export_pages.txt > /tmp/og_export_written.txt
+find . -name '*.html' \
+  -not -path './assets/*' -not -path './sites/*' \
+  -not -path './scripts/*' -not -path './.git/*' \
+  | sed 's#^\./##' | sort -u > /tmp/og_export_existing.txt
+comm -13 /tmp/og_export_written.txt /tmp/og_export_existing.txt > /tmp/og_export_orphans.txt
+
+orphans=$(grep -c . /tmp/og_export_orphans.txt || true)
+existing=$(grep -c . /tmp/og_export_existing.txt || true)
+if [ "$orphans" -gt 0 ]; then
+  if [ "$orphans" -gt 3 ] && [ $((orphans * 5)) -gt "$existing" ]; then
+    echo "REFUSING to prune $orphans of $existing route files:"
+    sed 's/^/    /' /tmp/og_export_orphans.txt
+    echo "That is too large a share to be an editorial deletion and looks like a"
+    echo "truncated sitemap fetch. Nothing was removed."
+    exit 1
+  fi
+  while read -r orphan; do
+    [ -z "$orphan" ] && continue
+    rm -f "$orphan"
+    echo "  - removed $orphan (no longer published by the source)"
+  done < /tmp/og_export_orphans.txt
+fi
+
 # 3. Strip Framer editor/branding markup and point the mirror at $DST.
 while read -r f; do
   sedi \

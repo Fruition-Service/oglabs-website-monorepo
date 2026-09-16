@@ -334,6 +334,83 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+section 'a route removed from the source is removed from the mirror'
+
+# The export only writes the routes named in the current sitemap, so before
+# this was handled a page deleted in Framer stayed in the mirror and failed
+# parity as an only-in-mirror route, deadlocking every later publish. This
+# section builds its own mirror so it does not inherit the state the earlier
+# sections left behind.
+PRUNE="$WORK/prune-mirror"
+mkdir -p "$PRUNE"
+cp "$REPO/export.sh" "$PRUNE/export.sh"
+cp -R "$REPO/scripts" "$PRUNE/scripts"
+cp -R "$FIXTURES/site-a/." "$WORK/site/"
+( cd "$PRUNE" && ./export.sh >"$WORK/export-prune1.log" 2>&1 )
+check 'export of the two route fixture exits clean' "$?" '0'
+if [ -f "$PRUNE/index.html" ] && [ -f "$PRUNE/about.html" ]; then
+  ok 'the fresh mirror holds both routes'
+else
+  bad 'the fresh mirror holds both routes'
+fi
+
+# Unpublish /about the way an editor would: gone from the site and the sitemap.
+rm -f "$WORK/site/about.html"
+python3 - "$WORK/site/sitemap.xml" <<'PY'
+import re, sys
+p = sys.argv[1]
+s = open(p).read()
+open(p, 'w').write(re.sub(r'<url><loc>[^<]*/about</loc></url>\n?', '', s))
+PY
+
+"$REPO/scripts/framer-source-state.sh" --out "$WORK/src-pruned" >/dev/null 2>&1
+python3 "$REPO/scripts/verify-parity.py" --source-dir "$WORK/src-pruned" --mirror-dir "$PRUNE" \
+  --json "$WORK/parity-orphan.json" >"$WORK/parity-orphan.log" 2>&1
+check 'parity fails while the mirror still holds the removed route' "$?" '1'
+if grep -q 'route set mismatch' "$WORK/parity-orphan.log"; then
+  ok 'the orphan failure is reported as a route set mismatch'
+else
+  bad 'the orphan failure is reported as a route set mismatch' "$(head -5 "$WORK/parity-orphan.log")"
+fi
+
+( cd "$PRUNE" && ./export.sh >"$WORK/export-prune2.log" 2>&1 )
+check 'export against a source with a removed route exits clean' "$?" '0'
+if [ -f "$PRUNE/about.html" ]; then
+  bad 'export deletes the mirror page for the removed route'
+else
+  ok 'export deletes the mirror page for the removed route'
+fi
+if grep -q 'removed about.html' "$WORK/export-prune2.log"; then
+  ok 'the export log names the removed route'
+else
+  bad 'the export log names the removed route' "$(tail -5 "$WORK/export-prune2.log")"
+fi
+if [ -f "$PRUNE/index.html" ]; then
+  ok 'pruning leaves the surviving routes alone'
+else
+  bad 'pruning leaves the surviving routes alone'
+fi
+python3 "$REPO/scripts/verify-parity.py" --source-dir "$WORK/src-pruned" --mirror-dir "$PRUNE" \
+  --json "$WORK/parity-pruned.json" >"$WORK/parity-pruned.log" 2>&1
+check 'parity passes once the removed route is pruned' "$?" '0'
+
+# A truncated sitemap fetch produces the same signal as a mass deletion and
+# must not be obeyed. Five stale routes against a one route sitemap crosses
+# both guard conditions.
+for r in a b c d e; do printf '<html></html>' > "$PRUNE/stale-$r.html"; done
+( cd "$PRUNE" && ./export.sh >"$WORK/export-guard.log" 2>&1 )
+check 'export refuses to prune an implausible share of the site' "$?" '1'
+if grep -q 'REFUSING to prune' "$WORK/export-guard.log"; then
+  ok 'the refusal explains itself'
+else
+  bad 'the refusal explains itself' "$(tail -5 "$WORK/export-guard.log")"
+fi
+if [ -f "$PRUNE/stale-a.html" ] && [ -f "$PRUNE/stale-e.html" ] && [ -f "$PRUNE/index.html" ]; then
+  ok 'the refused run leaves every route file in place'
+else
+  bad 'the refused run leaves every route file in place'
+fi
+# ---------------------------------------------------------------------------
 printf '\n%s\n' '-----------------------------------------'
 printf 'passed: %d  failed: %d\n' "$PASS" "$FAIL"
 if [ "$FAIL" -gt 0 ]; then
