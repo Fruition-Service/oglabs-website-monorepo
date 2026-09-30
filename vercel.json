@@ -2,23 +2,5 @@
   "framework": null,
   "outputDirectory": ".",
   "cleanUrls": true,
-  "trailingSlash": false,
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [
-        { "type": "header", "key": "cf-visitor", "value": ".*\"scheme\":\"http\".*" }
-      ],
-      "destination": "https://oglabs.io/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/:path*",
-      "has": [
-        { "type": "header", "key": "x-forwarded-proto", "value": "http" }
-      ],
-      "destination": "https://oglabs.io/:path*",
-      "permanent": true
-    }
-  ]
+  "trailingSlash": false
 }
