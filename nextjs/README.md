@@ -1,8 +1,10 @@
 # oglabs.io in Next.js
 
-A 1:1 rebuild of the OG Labs Framer site (`oglabs.framer.website`, publish of 14 Oct 2026) that
-replaces the static Framer mirror at the repo root. Same layout at every width, same copy, images
-and animations. Next.js 16 (App Router), React 19, CSS Modules, `motion` for animation.
+The live oglabs.io (since 14 Oct 2026). Built as a 1:1 rebuild of the OG Labs Framer site
+(`oglabs.framer.website`, publish of 14 Oct 2026): same layout at every width, same copy, images and
+animations. Deliberate additions since: the Education and Retail industry pages, a Company field on
+`/contact`, and the FAQ toggle alignment fix. Next.js 16 (App Router), React 19, CSS Modules, `motion`
+for animation.
 
 ```bash
 npm install
@@ -20,7 +22,7 @@ npm run build
 | `src/components/ui/` | `Button` (Framer "Buttons/Primary", 16 variants), `Badge`, `Logo` |
 | `src/components/home/` | Home sections, incl. the Solution Finder (`home/finder/`, HubSpot form 8b0a9d02) |
 | `src/components/services/` | One template for the eight `/services/*` pages; copy lives in each `page.tsx` |
-| `src/components/landing/` | Region (`/au /nz /sg`), industry and case-study pages |
+| `src/components/landing/` | Region (`/au /nz /sg`), industry (incl. education, retail) and case-study pages |
 | `src/components/{about,contact,careers,partnerships}/` | Company pages; `/contact` embeds HubSpot form 8b0a9d02 |
 | `src/components/blog/`, `src/lib/blog.ts`, `src/lib/hubspot.ts`, `src/content/posts/` | Blog (see below) |
 | `src/app/globals.css`, `presets.css`, `fonts.css` | Framer colour tokens (by token id), the 27 Framer text presets as `.p-<id>`, self-hosted fonts |
