@@ -1,0 +1,112 @@
+/* "Comparison" (framer-m69gxi) */
+.section {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-flow: column;
+  flex: none;
+  place-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+  overflow: clip;
+  background-color: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, #2a2f36);
+}
+
+/* framer-1roi02e */
+.container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-flow: column;
+  flex: none;
+  place-content: center;
+  align-items: center;
+  gap: 36px;
+  width: 100%;
+  max-width: 1440px;
+  height: min-content;
+  padding: 120px 24px;
+  overflow: clip;
+}
+
+/* framer-1kczs6c */
+.headingWrapper {
+  position: relative;
+  display: flex;
+  flex-flow: row;
+  flex: none;
+  place-content: flex-end space-between;
+  align-items: flex-end;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+  overflow: visible;
+}
+
+/* framer-6ajmao */
+.heading {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  flex: none;
+  place-content: flex-start center;
+  align-items: flex-start;
+  gap: 12px;
+  width: 50%;
+  height: min-content;
+  padding: 0;
+  overflow: visible;
+}
+
+/* framer-ygwglv-container / framer-sixzqb-container */
+.slot {
+  position: relative;
+  flex: none;
+  width: auto;
+  height: auto;
+}
+
+/* framer-y1ihae */
+.text {
+  position: relative;
+  flex: none;
+  width: 100%;
+  height: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.h2 {
+  margin: 0;
+  /* preset 1o4nxrd has --framer-text-wrap: balance (missing from presets.css) */
+  text-wrap: balance;
+  text-align: left;
+  color: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255));
+}
+
+@media (max-width: 1199.98px) {
+  .container {
+    gap: 24px;
+    padding: 80px 24px;
+  }
+}
+
+@media (max-width: 809.98px) {
+  .container {
+    gap: 24px;
+    padding: 60px 24px;
+  }
+  .headingWrapper {
+    flex-direction: column;
+    place-content: flex-start;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .heading {
+    width: 100%;
+  }
+}

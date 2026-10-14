@@ -9,7 +9,9 @@ export const metadata: Metadata = {
   icons: { icon: "/framer/MTVxNEO89ITk79ZO2KCHjc5fibA.png", apple: "/framer/MTVxNEO89ITk79ZO2KCHjc5fibA.png" },
   openGraph: { type: "website", title: DEFAULT_TITLE, description: DEFAULT_DESCRIPTION, images: [OG_IMAGE] },
   twitter: { card: "summary_large_image", title: DEFAULT_TITLE, description: DEFAULT_DESCRIPTION, images: [OG_IMAGE] },
-  robots: { "max-image-preview": "large" },
+  // Preview deployments (anything that is not oglabs.io) set SITE_NOINDEX=1 so they never compete
+  // with the real site in search.
+  robots: process.env.SITE_NOINDEX === "1" ? { index: false, follow: false } : { "max-image-preview": "large" },
 };
 
 export const viewport: Viewport = { width: "device-width" };

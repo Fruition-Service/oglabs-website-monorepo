@@ -1,0 +1,55 @@
+.section {
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+  max-width: 1440px;
+  height: min-content;
+  padding: 80px 48px;
+  background-color: var(--token-480f2f7a-da00-45c5-92b4-5cc867c511e6, #f0f0f0);
+}
+
+.fullBleed {
+  max-width: none;
+}
+
+.list {
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  height: min-content;
+}
+
+.item {
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  height: min-content;
+  padding: 24px 0;
+}
+
+/* Bottom hairline on every row but the last (Framer data-border overlay). */
+.item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--token-50ca2844-00a6-4286-bbb3-9d3e4b594ec9, #e4e4e4);
+  pointer-events: none;
+}

@@ -1,0 +1,379 @@
+/* Shared Framer template of the /services/* pages. The Framer page has no breakpoint overrides at
+   all: the layout is identical at every width (fixed 1152px masonry grids and "Fit" text overflow on
+   tablet/phone, exactly like the live site); only the text presets change size. */
+
+/* Framer RichTextContainer */
+.text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  flex: none;
+  position: relative;
+  outline: none;
+}
+
+/* "Fit" text: no wrapping, sized to the content */
+.fit {
+  white-space: pre;
+  width: auto;
+  height: auto;
+}
+
+/* Fill text: wraps within the parent */
+.fill {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  width: 100%;
+  height: auto;
+}
+
+/* Framer's presets for h1/h2/18px body carry --framer-text-wrap: balance */
+.balance {
+  text-wrap: balance;
+}
+
+/* Framer preset 1ylqbua (heading variant; presets.css only has its link variant). */
+.h1 {
+  font-family: "Inter Display", "Inter Display Placeholder", sans-serif;
+  font-size: 80px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 90%;
+  color: var(--token-442a8080-47a9-427e-9581-c23ce6c42231, #000);
+  font-feature-settings: var(--ffs-inter);
+  text-transform: none;
+  text-decoration: none;
+  font-style: normal;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 36px;
+  flex: none;
+  width: 100%;
+  max-width: 1440px;
+  height: min-content;
+  padding: 100px 24px 120px;
+  position: relative;
+}
+
+.heroImage {
+  flex: none;
+  width: 100%;
+  height: 259px;
+  position: relative;
+  overflow: visible;
+}
+
+.heroImageFill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.heroImageFill img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+}
+
+.heroRow {
+  z-index: 0;
+  display: flex;
+  flex-direction: row;
+  align-content: flex-end;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex: none;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+  position: relative;
+}
+
+.heroMain {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 16px;
+  flex: none;
+  width: 60%;
+  height: min-content;
+  padding: 0;
+  position: relative;
+}
+
+.badge {
+  background-color: var(--token-3756c145-13f1-478e-9253-4a4e46de6da3, #f60);
+  border-radius: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+  width: min-content;
+  height: min-content;
+  padding: 6px 12px;
+  position: relative;
+}
+
+.badge p {
+  color: #fff;
+}
+
+.heroAside {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  flex: none;
+  width: 33%;
+  height: min-content;
+  padding: 0;
+  position: relative;
+}
+
+/* ---------- Content sections ---------- */
+.section {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: none;
+  width: 100%;
+  height: min-content;
+  padding: 80px 24px;
+  position: relative;
+}
+
+.sectionGray {
+  background-color: var(--token-480f2f7a-da00-45c5-92b4-5cc867c511e6, #f0f0f0);
+}
+
+.sectionWide {
+  padding: 80px 48px;
+}
+
+.raised {
+  z-index: 0;
+}
+
+.headingGroup {
+  background-color: #0000;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 16px;
+  flex: none;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+  position: relative;
+}
+
+.bgWhite {
+  background-color: #fff;
+}
+
+.bgNone {
+  background-color: #0000;
+}
+
+.masonry {
+  display: grid;
+  gap: 24px;
+  flex: none;
+  width: 1152px;
+  height: min-content;
+  padding: 0;
+  position: relative;
+}
+
+.masonryColumn {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  width: 100%;
+}
+
+.autoGrid {
+  display: grid;
+  grid-template-rows: repeat(1, min-content);
+  grid-auto-rows: min-content;
+  justify-content: center;
+  gap: 24px;
+  flex: none;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+  position: relative;
+}
+
+/* Framer draws borders with an inset ::after ([data-border]) so they never add to the box size. */
+.card::after,
+.row:not(:last-child)::after,
+.stripLink::after {
+  content: "";
+  box-sizing: border-box;
+  border-radius: inherit;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0 solid var(--token-50ca2844-00a6-4286-bbb3-9d3e4b594ec9, #e4e4e4);
+}
+
+.card {
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  place-self: center;
+  gap: 12px;
+  flex: none;
+  width: 100%;
+  height: min-content;
+  position: relative;
+}
+
+.card::after,
+.stripLink::after {
+  border-width: 1px;
+}
+
+.cardGray {
+  background-color: var(--token-480f2f7a-da00-45c5-92b4-5cc867c511e6, #f0f0f0);
+  padding: 24px;
+}
+
+.cardWhite {
+  background-color: #fff;
+  padding: 32px;
+}
+
+.rows {
+  background-color: #0000;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0;
+  flex: none;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+  position: relative;
+}
+
+.row {
+  background-color: #0000;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 8px;
+  flex: none;
+  width: 100%;
+  height: min-content;
+  padding: 24px 0;
+  position: relative;
+}
+
+.row:not(:last-child)::after {
+  border-bottom-width: 1px;
+}
+
+/* ---------- Industry strip (empty in Framer: 0px tall) ---------- */
+.strip,
+.stripRow {
+  background-color: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex: none;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+  position: relative;
+}
+
+.strip {
+  max-width: 1440px;
+}
+
+.stripFill {
+  background-color: #fff;
+  flex: none;
+  width: auto;
+  height: auto;
+  position: relative;
+}
+
+.stripLink {
+  background-color: #fff;
+  border-radius: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex: none;
+  width: min-content;
+  height: min-content;
+  padding: 0;
+  text-decoration: none;
+  position: relative;
+}
+
+/* ---------- Dark CTA band ---------- */
+.cta {
+  background-color: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, #333);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex: none;
+  width: 100%;
+  max-width: 1440px;
+  height: min-content;
+  padding: 80px 48px;
+  position: relative;
+}
+
+.cta h2,
+.cta p {
+  color: #fff;
+}
+
+@media (max-width: 1199.98px) {
+  .h1 {
+    font-size: 52px;
+  }
+}
+
+@media (max-width: 809.98px) {
+  .h1 {
+    font-size: 48px;
+  }
+}

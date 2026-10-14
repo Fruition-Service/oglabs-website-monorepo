@@ -1,0 +1,566 @@
+/* Features (Framer framer-XsZ68 rules for framer-17b3rqp and its children). Desktop first. */
+
+.section {
+  /* framer-17b3rqp */
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-flow: column;
+  flex: none;
+  place-content: center flex-start;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+  overflow: visible;
+}
+
+.container {
+  /* framer-1rylcqc */
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-flow: column;
+  flex: none;
+  place-content: flex-start center;
+  align-items: flex-start;
+  gap: 36px;
+  width: 100%;
+  max-width: 1440px;
+  height: min-content;
+  padding: 120px 24px;
+  overflow: visible;
+}
+
+.headingWrapper {
+  /* framer-1liamv2 */
+  position: relative;
+  display: flex;
+  flex-flow: row;
+  flex: none;
+  place-content: flex-end space-between;
+  align-items: flex-end;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+  overflow: visible;
+}
+
+.heading {
+  /* framer-8k6ysj */
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  flex: none;
+  place-content: flex-start center;
+  align-items: flex-start;
+  gap: 12px;
+  width: 50%;
+  height: min-content;
+  padding: 0;
+  overflow: visible;
+}
+
+.subheading {
+  /* framer-1is1j76 */
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  flex: none;
+  place-content: flex-start center;
+  align-items: flex-start;
+  gap: 12px;
+  width: 33%;
+  height: min-content;
+  padding: 0;
+  overflow: clip;
+}
+
+/* Preset 1o4nxrd carries Framer's --framer-text-wrap: balance, which presets.css does not generate. */
+.balance {
+  text-wrap: balance;
+}
+
+.badgeWrap {
+  position: relative;
+  flex: none;
+  width: auto;
+  height: auto;
+}
+
+/* Framer rich-text wrapper + p (framer-1j3rm9e, -1nr7j97, -19hr9c3, ...). */
+.text {
+  position: relative;
+  flex: none;
+  width: 100%;
+  height: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.body {
+  /* framer-k1zrin */
+  --border-bottom-width: 1px;
+  --border-color: var(--token-50ca2844-00a6-4286-bbb3-9d3e4b594ec9, #e4e4e4);
+  --border-left-width: 1px;
+  --border-right-width: 1px;
+  --border-style: solid;
+  --border-top-width: 1px;
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  flex: none;
+  place-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: min-content;
+  padding: 12px;
+  overflow: clip;
+  border-radius: 24px;
+  background-color: var(--token-480f2f7a-da00-45c5-92b4-5cc867c511e6, #f0f0f0);
+  will-change: transform;
+}
+
+.row {
+  /* framer-1eu6zxn, framer-10u1rid */
+  position: relative;
+  display: flex;
+  flex-flow: row;
+  flex: none;
+  place-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+  overflow: visible;
+}
+
+/* White card shell shared by every bento card. */
+.card,
+.tools,
+.slogan {
+  --border-bottom-width: 1px;
+  --border-color: var(--token-50ca2844-00a6-4286-bbb3-9d3e4b594ec9, #e4e4e4);
+  --border-left-width: 1px;
+  --border-right-width: 1px;
+  --border-style: solid;
+  --border-top-width: 1px;
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  padding: 24px;
+  overflow: clip;
+  border-radius: 16px;
+  background-color: var(--token-d0c27c52-5598-475d-b517-ac18042bf84b, #fff);
+  box-shadow:
+    0 0.361312px 0.361312px -1.25px #0000000f,
+    0 1.37312px 1.37312px -2.5px #0000000d,
+    0 6px 6px -3.75px #00000005;
+  will-change: transform;
+}
+
+.card {
+  flex: 1 0 0;
+  width: 1px;
+  height: 400px;
+  align-items: center;
+}
+
+/* framer-5zhwkv, -19emp8z, -1i8vxov */
+.cardSplit {
+  place-content: center space-between;
+}
+
+/* framer-15k97w3 */
+.cardCenter {
+  place-content: center;
+  gap: 40px;
+}
+
+.td {
+  /* framer-4a59au, -19u5ljh, -m2bn1v, -1oegagl */
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  flex: none;
+  place-content: flex-start center;
+  align-items: flex-start;
+  gap: 4px;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+  overflow: clip;
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-position: center;
+  object-fit: cover;
+}
+
+.graphics,
+.teamGraphics {
+  /* framer-1wlfugm, framer-4yxfco */
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-flow: row;
+  flex: none;
+  place-content: center;
+  align-items: center;
+  gap: 31px;
+  width: min-content;
+  height: min-content;
+  padding: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+.teamGraphics {
+  gap: 17.29px;
+}
+
+.pic222 {
+  /* framer-1t9mxn0, framer-hmqzov */
+  position: relative;
+  flex: none;
+  width: 222px;
+  height: auto;
+  aspect-ratio: 1;
+  overflow: visible;
+}
+
+.pic164 {
+  /* framer-1a72nwo, framer-j5b4dq */
+  position: relative;
+  flex: none;
+  width: 164px;
+  height: auto;
+  aspect-ratio: 1;
+  overflow: visible;
+}
+
+.hubspotImg {
+  /* framer-xds0aq */
+  position: relative;
+  flex: 1 0 0;
+  width: auto;
+  height: 1px;
+  aspect-ratio: 1.77778;
+  overflow: visible;
+}
+
+.cuGraphics {
+  /* framer-6brv9x */
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  flex: none;
+  place-content: center;
+  align-items: center;
+  gap: 10px;
+  width: min-content;
+  height: min-content;
+  padding: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+.cuImg {
+  /* framer-jfxpse */
+  position: relative;
+  flex: none;
+  width: 336px;
+  height: auto;
+  aspect-ratio: 1.70833;
+  overflow: visible;
+}
+
+.toolsSlogan {
+  /* framer-d9lj6b */
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  flex: 1 0 0;
+  place-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 1px;
+  height: 400px;
+  padding: 0;
+  overflow: clip;
+}
+
+.tools {
+  /* framer-u6frm8 */
+  flex: 2 0 0;
+  place-content: flex-start space-between;
+  align-items: flex-start;
+  width: 100%;
+  height: 1px;
+}
+
+.toolsTitle {
+  /* framer-nosjta */
+  width: 51%;
+}
+
+.logos {
+  /* framer-1416wj4 */
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1;
+  display: flex;
+  flex-flow: column;
+  flex: none;
+  place-content: flex-end center;
+  align-items: flex-end;
+  gap: 0;
+  width: 288px;
+  height: min-content;
+  padding: 0;
+  overflow: clip;
+}
+
+.logoRow {
+  /* framer-1una98v, -yoi4a, -19qakwy */
+  position: relative;
+  display: flex;
+  flex-flow: wrap;
+  flex: none;
+  place-content: center flex-end;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+  overflow: clip;
+}
+
+.icon {
+  /* framer-10qsvfa, ... */
+  --border-bottom-width: 1px;
+  --border-color: var(--token-50ca2844-00a6-4286-bbb3-9d3e4b594ec9, #e4e4e4);
+  --border-left-width: 1px;
+  --border-right-width: 1px;
+  --border-style: solid;
+  --border-top-width: 1px;
+  position: relative;
+  display: flex;
+  flex-flow: row;
+  flex: none;
+  place-content: center;
+  align-items: center;
+  gap: 12px;
+  width: min-content;
+  height: min-content;
+  padding: 12px;
+  overflow: clip;
+  border-radius: 100px;
+  will-change: transform;
+}
+
+.iconImg {
+  /* framer-UvvY3 + framer-lilsn5 */
+  position: relative;
+  display: block;
+  flex: none;
+  width: 28px;
+  height: auto;
+  aspect-ratio: 1;
+  user-select: none;
+}
+
+.slogan {
+  /* framer-53bcy3 */
+  flex: 1 0 0;
+  place-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 1px;
+}
+
+.sloganContent {
+  /* framer-luipi1 */
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-flow: row;
+  flex: none;
+  place-content: center;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+  overflow: clip;
+}
+
+.logoBox {
+  /* framer-h03t9s */
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-flow: row;
+  flex: none;
+  place-content: center;
+  align-items: center;
+  gap: 12px;
+  width: min-content;
+  height: min-content;
+  padding: 12px;
+  overflow: visible;
+  border-radius: 12px;
+  background-color: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, #2a2f36);
+}
+
+.mark {
+  /* framer-buehmf */
+  position: relative;
+  flex-shrink: 0;
+  width: 31px;
+  height: 30px;
+  image-rendering: pixelated;
+  background-size: 100% 100%;
+}
+
+.sloganText {
+  /* framer-mu0u5r */
+  z-index: 2;
+  width: 60%;
+}
+
+/* Framer's hidden-72rtr7 / hidden-jju2c5 / hidden-1ks3cou. */
+@media (min-width: 1200px) {
+  .hideD {
+    display: none !important;
+  }
+}
+
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .hideT {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .container {
+    gap: 24px;
+    padding: 80px 24px;
+  }
+
+  .headingWrapper {
+    flex-direction: column;
+    place-content: flex-start;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .subheading {
+    width: 100%;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .card,
+  .toolsSlogan {
+    flex: none;
+    width: 100%;
+  }
+
+  .hubspotImg {
+    flex: none;
+    width: 466px;
+    height: auto;
+  }
+
+  .cuImg {
+    width: 447px;
+  }
+
+  .teamGraphics {
+    gap: 26.53px;
+  }
+
+  .pic164 {
+    width: 252px;
+  }
+}
+
+@media (max-width: 809.98px) {
+  .hideP {
+    display: none !important;
+  }
+
+  .container {
+    padding: 60px 24px;
+  }
+
+  .headingWrapper {
+    align-content: flex-end;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+
+  .heading {
+    width: 100%;
+  }
+
+  .toolsTitle {
+    width: 100%;
+  }
+
+  .hubspotImg {
+    width: 270px;
+  }
+
+  .cuImg {
+    width: 270px;
+  }
+
+  .toolsSlogan {
+    height: min-content;
+  }
+
+  .tools {
+    flex: none;
+    height: 260px;
+  }
+
+  .logos {
+    position: relative;
+    right: unset;
+    bottom: unset;
+    width: 100%;
+  }
+
+  .iconImg {
+    width: 16px;
+  }
+
+  .slogan {
+    flex: none;
+    height: 140px;
+  }
+
+  .solutions {
+    width: 199px;
+  }
+
+  .scalePhone {
+    transform: scale(1.1);
+  }
+}

@@ -92,3 +92,10 @@
 .p-knz921{font-family:"Inter", "Inter Placeholder", sans-serif;font-size:16px;font-weight:400;letter-spacing:-.02em;line-height:140%;color:var(--token-442a8080-47a9-427e-9581-c23ce6c42231);font-feature-settings:"blwf" on, "cv09" on, "cv03" on, "cv04" on, "cv11" on;text-transform:none;text-decoration:none;font-style:normal;--paragraph-spacing:20px}
 .p-mzxkxl{font-family:"Inter", "Inter Placeholder", sans-serif;font-size:18px;font-weight:400;letter-spacing:-.02em;line-height:140%;color:var(--token-442a8080-47a9-427e-9581-c23ce6c42231);font-feature-settings:"blwf" on, "cv09" on, "cv03" on, "cv04" on, "cv11" on;text-transform:none;text-decoration:none;font-style:normal;--paragraph-spacing:20px}
 .p-y0gzpf{font-family:"Inter", "Inter Placeholder", sans-serif;font-size:12px;font-weight:400;letter-spacing:-.02em;line-height:140%;color:var(--token-442a8080-47a9-427e-9581-c23ce6c42231);font-feature-settings:"blwf" on, "cv09" on, "cv03" on, "cv04" on, "cv11" on;text-transform:none;text-decoration:none;font-style:normal;--paragraph-spacing:20px}
+
+/* Added by hand: the generator missed the h1 preset's text rule (it only kept its link rule) and
+   Framer's --framer-text-wrap:balance on four presets. Values copied from the Framer CSS. */
+.p-1ylqbua{font-family:"Inter Display", "Inter Display Placeholder", sans-serif;font-size:80px;font-weight:500;letter-spacing:-.04em;line-height:90%;color:var(--token-442a8080-47a9-427e-9581-c23ce6c42231);font-feature-settings:var(--ffs-inter);text-transform:none}
+@media (max-width: 1199.98px) { .p-1ylqbua{font-size:52px} }
+@media (max-width: 809.98px) { .p-1ylqbua{font-size:48px} }
+.p-1ylqbua,.p-1o4nxrd,.p-mzxkxl,.p-1ln46ju{text-wrap:balance}
