@@ -1,0 +1,52 @@
+.main { align-items: center; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 12px; height: min-content; justify-content: center; overflow: clip; padding: 0px; position: relative; width: 100%; z-index: 2; }
+.container { align-items: center; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 0px; height: min-content; justify-content: center; max-width: 1440px; overflow: clip; padding: 120px 24px 24px 24px; position: relative; width: 100%; z-index: 2; }
+.wrapper { align-items: flex-start; border-bottom-left-radius: 24px; border-bottom-right-radius: 24px; border-top-left-radius: 24px; border-top-right-radius: 24px; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 48px; height: min-content; justify-content: center; overflow: clip; padding: 64px; position: relative; width: 100%; }
+.bg { bottom: 0px; flex: none; left: 0px; overflow: clip; position: absolute; right: 0px; top: 0px; z-index: 1; }
+.overlay { background-color: var(--token-a1d81393-c55e-4299-ad69-bacd80adc6f2, rgba(0, 0, 0, 0.12)); bottom: 0px; flex: none; left: 0px; overflow: clip; position: absolute; right: 0px; top: 0px; z-index: 2; }
+.headingWrapper { align-items: flex-start; align-self: stretch; display: flex; flex: 1 0 0px; flex-direction: column; flex-wrap: nowrap; height: auto; justify-content: space-between; overflow: visible; padding: 0px; position: relative; width: 1px; z-index: 2; }
+.heading { align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 12px; height: min-content; justify-content: center; overflow: clip; padding: 0px; position: relative; width: 100%; }
+.badge { flex: none; height: auto; position: relative; width: auto; }
+.text { flex: none; height: auto; position: relative; white-space: pre-wrap; width: 100%; word-break: break-word; word-wrap: break-word; }
+.benefits { align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 24px; height: min-content; justify-content: center; overflow: visible; padding: 24px 0px 0px 0px; position: relative; width: 100%; }
+.divider { --border-bottom-width: 4px; --border-color: var(--token-bdeff91b-ff5a-4e60-996e-2b0d5afceb32, rgba(255, 255, 255, 0.24)); --border-left-width: 0px; --border-right-width: 0px; --border-style: dashed; --border-top-width: 0px; flex: none; height: 1px; left: 0px; overflow: clip; position: absolute; right: 0px; top: 0px; z-index: 1; }
+.pair { align-items: center; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 12px; height: min-content; justify-content: flex-start; overflow: visible; padding: 0px; position: relative; width: 100%; }
+.benefit { align-items: center; display: flex; flex: 1 0 0px; flex-direction: row; flex-wrap: nowrap; gap: 12px; height: min-content; justify-content: flex-start; overflow: clip; padding: 0px; position: relative; width: 1px; }
+.icon { align-items: center; background-color: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, #ffffff); border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; border-top-left-radius: 8px; border-top-right-radius: 8px; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 12px; height: min-content; justify-content: center; overflow: clip; padding: 4px; position: relative; width: min-content; }
+.check { --1brjxap: 1; --dafnjl: var(--token-3756c145-13f1-478e-9253-4a4e46de6da3, #f73b1f); --smyql9: 2; aspect-ratio: 1.0434782608695652 / 1; flex: none; height: auto; position: relative; width: 21px; }
+.benefitText { flex: 1 0 0px; height: auto; position: relative; white-space: pre-wrap; width: 1px; word-break: break-word; word-wrap: break-word; }
+.form { --border-bottom-width: 1px; --border-color: var(--token-50ca2844-00a6-4286-bbb3-9d3e4b594ec9, #d8d8d8); --border-left-width: 1px; --border-right-width: 1px; --border-style: solid; --border-top-width: 1px; align-items: flex-end; background-color: var(--token-480f2f7a-da00-45c5-92b4-5cc867c511e6, #2d292a); border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; border-top-left-radius: 16px; border-top-right-radius: 16px; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 24px; height: min-content; justify-content: flex-start; overflow: hidden; padding: 24px; position: relative; width: 50%; z-index: 2; }
+.inputs { align-items: center; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 12px; height: min-content; justify-content: center; overflow: clip; padding: 0px; position: relative; width: 100%; }
+.embed { flex: none; height: auto; position: relative; width: 117%; }
+
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .wrapper { flex-direction: column; gap: 32px; padding: 36px; }
+  .headingWrapper { align-self: unset; flex: none; gap: 24px; height: min-content; justify-content: center; width: 100%; }
+  .form { width: 100%; }
+  .embed { width: 112%; }
+}
+
+@media (max-width: 809.98px) {
+  .wrapper { flex-direction: column; gap: 24px; padding: 24px; }
+  .headingWrapper { align-self: unset; flex: none; gap: 24px; height: min-content; justify-content: center; width: 100%; }
+  .benefits { gap: 12px; }
+  .pair { flex-direction: column; }
+  .benefit { flex: none; width: 100%; }
+  .form { width: 100%; }
+  .embed { width: 133%; }
+}
+
+/* Framer's data-border (form card, dashed divider). */
+.form::after, .divider::after { content: ""; border-width: var(--border-top-width, 0) var(--border-right-width, 0) var(--border-bottom-width, 0) var(--border-left-width, 0); border-color: var(--border-color, none); border-style: var(--border-style, none); width: 100%; height: 100%; position: absolute; box-sizing: border-box; left: 0; top: 0; border-radius: inherit; pointer-events: none; }
+
+.rt { outline: none; flex-direction: column; flex-shrink: 0; justify-content: flex-start; display: flex; }
+/* Heading 1 preset (1ylqbua), see about/text.module.css. */
+.h1 { font-family: "Inter Display", "Inter Display Placeholder", sans-serif; font-size: 80px; font-weight: 500; letter-spacing: -0.04em; line-height: 90%; font-feature-settings: var(--ffs-inter); text-wrap: balance; margin: 0; }
+.lead { text-wrap: balance; }
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .h1 { font-size: 52px; }
+}
+@media (max-width: 809.98px) {
+  .h1 { font-size: 48px; }
+  /* Phone swaps the 18px preset (mzxkxl) for the 16px one (knz921), which does not balance. */
+  .heading .lead { font-size: 16px; text-wrap: wrap; }
+}

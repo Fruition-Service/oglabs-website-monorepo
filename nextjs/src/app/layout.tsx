@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { SITE_URL, DEFAULT_TITLE, DEFAULT_DESCRIPTION, OG_IMAGE } from "@/lib/site";
 
@@ -19,7 +20,15 @@ export const viewport: Viewport = { width: "device-width" };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" dir="ltr">
-      <body>{children}</body>
+      <body>
+        {children}
+        {/* HubSpot tracking (Framer "bodyEnd" snippet mA7QqaneL, same src). It sets the hutk cookie the
+            Solution Finder sends and captures non-HubSpot forms. Skipped on preview hosts so test
+            visits never land in HubSpot. */}
+        {process.env.SITE_NOINDEX !== "1" && (
+          <Script id="hs-script-loader" src="https://js-eu1.hs-scripts.com/442278519.js" strategy="afterInteractive" />
+        )}
+      </body>
     </html>
   );
 }
