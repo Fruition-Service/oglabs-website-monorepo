@@ -1,0 +1,12 @@
+# The Vercel deployment serves the repository root (vercel.json outputDirectory "."),
+# so anything that is not part of the website must be listed here or it goes live.
+/README.md
+/CLAUDE.md
+/AGENTS.md
+/docs
+/export.sh
+/sync-state.json
+/scripts
+/.github
+/nextjs
+/.env*
