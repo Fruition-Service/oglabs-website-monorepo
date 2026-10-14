@@ -27,6 +27,8 @@ const INDUSTRIES: DropdownItem[] = [
   { text: "Construction", href: "/industries/construction" },
   { text: "Manufacturing", href: "/industries/manufacturing" },
   { text: "Financial Services", href: "/industries/financial-services" },
+  { text: "Education", href: "/industries/education" },
+  { text: "Retail", href: "/industries/retail" },
 ];
 const REGIONS: DropdownItem[] = [
   { text: "Australia", href: "/au" },

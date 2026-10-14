@@ -138,6 +138,20 @@ function attr(tag: string, name: string): string | undefined {
   return m ? (m[2] ?? m[3] ?? m[4]) : undefined;
 }
 
+/**
+ * HubSpot file URLs serve the original upload (covers are 1-2 MB PNGs). The CDN's `/hub/<portal>/hubfs/`
+ * path resizes on request (`?width=`, returned as an optimised JPEG/WebP), so covers and body images
+ * are rewritten to that form. 1400px covers the post-page cover (1392px wide) and the 2x card at ~200 KB; uploads are 1536px wide and asking for the full width or more returns the original PNG.
+ */
+export function resizedHubSpotUrl(src: string, width = 1400): string {
+  const m = /^(https:\/\/\d+\.fs1\.hubspotusercontent-[a-z0-9]+\.net)\/hubfs\/(\d+)\/([^?#]+)(?:\?[^#]*)?$/i.exec(src);
+  return m ? `${m[1]}/hub/${m[2]}/hubfs/${m[3]}?width=${width}` : src;
+}
+
+function resizeBodyImages(html: string): string {
+  return html.replace(/(<img\b[^>]*\ssrc=")([^"]+)(")/gi, (_, a: string, src: string, b: string) => a + resizedHubSpotUrl(src) + b);
+}
+
 /** First usable body image: http(s) only, skipping 1x1 tracking pixels. */
 export function firstBodyImage(html: string): { src: string; alt?: string } | null {
   for (const m of html.matchAll(/<img\b[^>]*>/gi)) {
@@ -263,12 +277,12 @@ export async function fetchHubSpotPosts(): Promise<HubSpotBlogPost[] | null> {
         slug,
         title: (p.name ?? "").trim(),
         description: p.metaDescription?.trim() ? p.metaDescription.trim() : toPlainText(p.postSummary ?? ""),
-        cover: cover?.src,
+        cover: cover?.src ? resizedHubSpotUrl(cover.src) : undefined,
         coverAlt: cover?.alt || undefined,
         publishedAt,
         authorName: (author?.name || author?.fullName || "").trim(),
         authorBio: author?.bio?.trim() || undefined,
-        html: sanitizeBody(body),
+        html: resizeBodyImages(sanitizeBody(body)),
         source: "hubspot",
       });
     }

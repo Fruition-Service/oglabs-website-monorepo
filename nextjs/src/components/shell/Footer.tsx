@@ -42,6 +42,8 @@ const INDUSTRIES: L[] = [
   { text: "Construction", href: "/industries/construction" },
   { text: "Manufacturing", href: "/industries/manufacturing" },
   { text: "Financial Services", href: "/industries/financial-services" },
+  { text: "Education", href: "/industries/education" },
+  { text: "Retail", href: "/industries/retail" },
 ];
 const SERVICES_A: L[] = [
   { text: "HubSpot", href: "/services/hubspot" },

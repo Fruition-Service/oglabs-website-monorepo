@@ -21,6 +21,8 @@ const STATIC_ROUTES = [
   "/industries/construction",
   "/industries/manufacturing",
   "/industries/financial-services",
+  "/industries/education",
+  "/industries/retail",
   "/services/ai-automation",
   "/services/clickup",
   "/services/hubspot",
