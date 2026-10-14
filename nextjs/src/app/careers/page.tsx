@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Page from "@/components/shell/Page";
+import Careers from "@/components/careers/Careers";
 
 export const metadata: Metadata = {
   title: "Careers at OG Labs | Remote Digital Transformation Jobs APAC",
@@ -8,7 +9,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "/careers" },
 };
 
-// Framer route /careers. TODO: sections (see qa/ref/careers-*.json).
+// Framer route /careers (page module hHxzSqJO).
 export default function CareersPage() {
-  return <Page footer="full">{null}</Page>;
+  return (
+    <Page footer="full">
+      <Careers />
+    </Page>
+  );
 }

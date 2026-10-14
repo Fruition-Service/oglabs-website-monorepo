@@ -1,0 +1,36 @@
+/* Text helpers shared by the about / contact / careers / partnerships pages.
+ *
+ * .h1 is Framer's "Heading 1" preset (framer-styles-preset-1ylqbua). presets.css only generated it as
+ * a link preset (".p-1ylqbua a"), so it does not style an <h1>; this is a local copy until that is fixed.
+ * .balance: Framer gives presets 1ylqbua, 1o4nxrd, mzxkxl and 1ln46ju `--framer-text-wrap: balance`,
+ * which presets.css does not carry yet. Add it next to those preset classes. */
+.h1 {
+  font-family: "Inter Display", "Inter Display Placeholder", sans-serif;
+  font-size: 80px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 90%;
+  color: var(--token-442a8080-47a9-427e-9581-c23ce6c42231);
+  font-feature-settings: var(--ffs-inter);
+  text-transform: none;
+  text-decoration: none;
+  font-style: normal;
+  text-wrap: balance;
+}
+@media (max-width: 1199.98px) {
+  .h1 { font-size: 52px; }
+}
+@media (max-width: 809.98px) {
+  .h1 { font-size: 48px; }
+}
+.balance {
+  text-wrap: balance;
+}
+/* Framer's [data-framer-component-type=RichTextContainer]. */
+.rt {
+  outline: none;
+  flex-direction: column;
+  flex-shrink: 0;
+  justify-content: flex-start;
+  display: flex;
+}

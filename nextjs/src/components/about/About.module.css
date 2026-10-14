@@ -1,0 +1,58 @@
+.section { align-items: center; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 12px; height: min-content; justify-content: center; overflow: clip; padding: 0px; position: relative; width: 100%; z-index: 2; }
+.mainContainer { align-items: center; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 36px; height: min-content; justify-content: center; max-width: 1440px; overflow: clip; padding: 200px 24px 120px 24px; position: relative; width: 100%; z-index: 2; }
+.headingRow, .teamHeadingRow { align-items: flex-end; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; height: min-content; justify-content: space-between; overflow: visible; padding: 0px; position: relative; width: 100%; }
+.halfText { flex: none; height: auto; position: relative; white-space: pre-wrap; width: 50%; word-break: break-word; word-wrap: break-word; }
+.subheading { align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 12px; height: min-content; justify-content: center; overflow: clip; padding: 0px; position: relative; width: 33%; }
+.auto { flex: none; height: auto; position: relative; width: auto; }
+.fullText { flex: none; height: auto; position: relative; white-space: pre-wrap; width: 100%; word-break: break-word; word-wrap: break-word; }
+.body { align-items: center; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 36px; height: min-content; justify-content: center; overflow: clip; padding: 0px; position: relative; width: 100%; }
+.image { align-items: center; border-bottom-left-radius: 24px; border-bottom-right-radius: 24px; border-top-left-radius: 24px; border-top-right-radius: 24px; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; gap: 12px; height: 600px; justify-content: center; overflow: clip; padding: 0px; position: relative; width: 100%; }
+.logo { flex: none; height: auto; position: relative; width: auto; z-index: 2; }
+.photo { --border-bottom-width: 1px; --border-color: var(--token-50ca2844-00a6-4286-bbb3-9d3e4b594ec9, #e4e4e4); --border-left-width: 1px; --border-right-width: 1px; --border-style: solid; --border-top-width: 1px; border-bottom-left-radius: 24px; border-bottom-right-radius: 24px; border-top-left-radius: 24px; border-top-right-radius: 24px; bottom: 0px; flex: none; left: 0px; position: absolute; right: 0px; top: 0px; z-index: 1; }
+.values { align-items: flex-end; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 24px; height: min-content; justify-content: flex-start; overflow: visible; padding: 0px; position: relative; width: 100%; }
+.valuesHeading { align-items: flex-start; display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; height: min-content; justify-content: space-between; overflow: visible; padding: 0px; position: relative; width: 100%; }
+.auto, .teamBadgePhone { flex: none; height: auto; position: relative; width: auto; }
+.valuesTitle { align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 12px; height: min-content; justify-content: center; overflow: clip; padding: 0px; position: relative; width: 40%; }
+.fullText, .teamTitle { flex: none; height: auto; position: relative; white-space: pre-wrap; width: 100%; word-break: break-word; word-wrap: break-word; }
+.list { align-items: center; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 24px; height: min-content; justify-content: center; overflow: clip; padding: 0px; position: relative; width: 100%; }
+.marker { flex: none; height: 1px; overflow: clip; position: relative; width: 100%; }
+.fullWidth { flex: none; height: auto; position: relative; width: 100%; }
+.divider { --border-bottom-width: 8px; --border-color: var(--token-a1d81393-c55e-4299-ad69-bacd80adc6f2, rgba(0, 0, 0, 0.12)); --border-left-width: 0px; --border-right-width: 0px; --border-style: dashed; --border-top-width: 0px; flex: none; height: 1px; max-width: 1440px; overflow: clip; position: relative; width: 96%; z-index: 2; }
+.container { align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 36px; height: min-content; justify-content: center; max-width: 1440px; overflow: clip; padding: 120px 24px 120px 24px; position: relative; width: 100%; }
+.teamHeading { align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 12px; height: min-content; justify-content: center; overflow: visible; padding: 0px; position: relative; width: 50%; }
+.teamGrid { display: grid; flex: none; gap: 12px; grid-auto-rows: min-content; grid-template-columns: repeat(4, minmax(50px, 1fr)); grid-template-rows: repeat(1, min-content); height: min-content; justify-content: center; overflow: visible; padding: 0px; position: relative; width: 100%; }
+.cell { align-self: center; flex: none; height: auto; justify-self: center; position: relative; width: 100%; }
+.blogHeading { align-items: flex-start; display: flex; flex: 1 0 0px; flex-direction: column; flex-wrap: nowrap; gap: 12px; height: min-content; justify-content: center; overflow: visible; padding: 0px; position: relative; width: 1px; }
+.blogWrap { align-items: flex-start; display: flex; flex: none; flex-direction: column; flex-wrap: nowrap; gap: 12px; height: min-content; justify-content: center; overflow: visible; padding: 0px; position: relative; width: 100%; }
+.blogGrid { display: grid; flex: none; gap: 12px; grid-auto-rows: min-content; grid-template-columns: repeat(3, minmax(50px, 1fr)); height: min-content; justify-content: center; padding: 0px; position: relative; width: 100%; }
+
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .mainContainer { gap: 24px; padding: 160px 24px 80px 24px; }
+  .container { gap: 24px; padding: 80px 24px 80px 24px; }
+  .teamGrid, .blogGrid { grid-template-columns: repeat(2, minmax(50px, 1fr)); }
+}
+
+@media (max-width: 809.98px) {
+  .mainContainer { gap: 24px; padding: 140px 24px 60px 24px; }
+  .headingRow { align-items: flex-start; flex-direction: column; gap: 24px; justify-content: flex-start; }
+  .halfText { order: 0; width: 100%; }
+  .subheading { order: 1; width: 100%; }
+  .values { align-items: flex-start; }
+  .valuesHeading, .teamHeadingRow { flex-direction: column; gap: 12px; justify-content: flex-start; }
+  .valuesTitle, .teamHeading, .subheading, .halfText { width: 100%; }
+  .container { gap: 24px; padding: 60px 24px 60px 24px; }
+  .teamTitle { order: 1; }
+  .teamBadgePhone { order: 0; }
+  .teamGrid, .blogGrid { grid-template-columns: repeat(1, minmax(50px, 1fr)); }
+  .blogHeading { flex: none; width: 100%; }
+}
+
+.rt { outline: none; flex-direction: column; flex-shrink: 0; justify-content: flex-start; display: flex; }
+.photo::after, .divider::after { content: ""; border-width: var(--border-top-width, 0) var(--border-right-width, 0) var(--border-bottom-width, 0) var(--border-left-width, 0); border-color: var(--border-color, none); border-style: var(--border-style, none); width: 100%; height: 100%; position: absolute; box-sizing: border-box; left: 0; top: 0; border-radius: inherit; pointer-events: none; }
+/* Framer hidden-<breakpoint> classes. */
+@media (min-width: 810px) {
+  .phoneOnly { display: none !important; }
+}
+@media (max-width: 809.98px) {
+  .notPhone { display: none !important; }
+}

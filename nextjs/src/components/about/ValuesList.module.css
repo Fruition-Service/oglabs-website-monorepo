@@ -1,0 +1,38 @@
+/* "About/Values List" (component vPJtY). Desktop / Tablet / Mobile variants, each Inactive or Active
+   (number turns orange, title black; Mobile also widens the title row gap 12 -> 24). */
+.item { display: flex; flex-direction: row; flex-wrap: nowrap; align-items: flex-start; justify-content: flex-start; gap: 0; padding: 0 0 24px; position: relative; width: 100%; overflow: visible; }
+.titleRow { display: flex; flex: 1 0 0px; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: center; gap: 120px; padding: 0; position: relative; width: 1px; overflow: clip; transition: gap 0.4s cubic-bezier(0.3, 1.15, 0.55, 1); }
+.num { flex: none; height: auto; position: relative; white-space: pre; width: auto; }
+.title { flex: 1 0 0px; height: auto; position: relative; white-space: pre-wrap; width: 1px; word-break: break-word; word-wrap: break-word; }
+.desc { flex: none; height: auto; position: relative; white-space: pre-wrap; width: 40%; word-break: break-word; word-wrap: break-word; }
+.divider { --border-bottom-width: 4px; --border-color: var(--token-a1d81393-c55e-4299-ad69-bacd80adc6f2, rgba(0, 0, 0, 0.12)); --border-left-width: 0px; --border-right-width: 0px; --border-style: dashed; --border-top-width: 0px; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; flex: none; overflow: clip; z-index: 1; }
+.divider::after { content: ""; border-width: var(--border-top-width, 0) var(--border-right-width, 0) var(--border-bottom-width, 0) var(--border-left-width, 0); border-color: var(--border-color, none); border-style: var(--border-style, none); width: 100%; height: 100%; position: absolute; box-sizing: border-box; left: 0; top: 0; border-radius: inherit; pointer-events: none; }
+
+.num p, .title p {
+  margin: 0;
+  font-family: "Inter", "Inter Placeholder", sans-serif;
+  font-weight: 400;
+  line-height: 120%;
+  font-feature-settings: var(--ffs-inter);
+  text-align: left;
+  color: var(--token-307e8a82-e5c7-4509-9db0-a64d9f69c46e, rgba(0, 0, 0, 0.48));
+  transition: color 0.4s cubic-bezier(0.3, 1.15, 0.55, 1);
+}
+/* Desktop: number preset 1hvcaac (32px), title preset 1uet6x (48px). */
+.num p { font-size: 32px; letter-spacing: -0.02em; }
+.title p { font-size: 48px; letter-spacing: -0.04em; }
+.active .num p { color: var(--token-3756c145-13f1-478e-9253-4a4e46de6da3, rgb(247, 59, 31)); }
+.active .title p { color: var(--token-442a8080-47a9-427e-9581-c23ce6c42231, rgb(0, 0, 0)); }
+
+/* Tablet: number 1ln46ju (24px), title 1hvcaac (32px). */
+@media (max-width: 1199.98px) {
+  .num p { font-size: 24px; text-wrap: balance; }
+  .title p { font-size: 32px; letter-spacing: -0.02em; }
+}
+/* Mobile: stacked, both texts 1ln46ju (24px, balanced). */
+@media (max-width: 809.98px) {
+  .item { flex-direction: column; gap: 24px; }
+  .titleRow { flex: none; gap: 12px; justify-content: flex-start; width: 100%; }
+  .active .titleRow { gap: 24px; }
+  .title p { font-size: 24px; text-wrap: balance; }
+}

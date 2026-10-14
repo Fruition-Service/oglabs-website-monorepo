@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Page from "@/components/shell/Page";
+import Partnerships from "@/components/partnerships/Partnerships";
 
 export const metadata: Metadata = {
   title: "HubSpot and ClickUp Partner Programme APAC | OG Labs",
@@ -8,7 +9,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "/partnerships" },
 };
 
-// Framer route /partnerships. TODO: sections (see qa/ref/partnerships-*.json).
+// Framer route /partnerships (page module UBtPi9Fz).
 export default function PartnershipsPage() {
-  return <Page footer="full">{null}</Page>;
+  return (
+    <Page footer="full">
+      <Partnerships />
+    </Page>
+  );
 }
