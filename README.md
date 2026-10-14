@@ -2,14 +2,13 @@
 
 The website for **OG Labs**, live at **https://oglabs.io**.
 
-The site is in the middle of a platform change. Read this first so you work on the right thing:
+**Since 14 Oct 2026 oglabs.io is the Next.js 16 app in [`nextjs/`](nextjs/README.md)**, built by the
+Vercel project `oglabs-website` (Root Directory `nextjs`) behind the Cloudflare Worker on `oglabs.io`.
+Pages are edited in this repo; blog posts are published in **HubSpot** and appear within 5 minutes.
 
-| | Today (production) | Next (in progress) |
-|---|---|---|
-| What it is | A **static mirror** of the Framer site `oglabs.framer.website` | A **Next.js 16** rebuild of that same Framer site, 1:1 |
-| Where the code is | The repo root of `main`: exported HTML, vendored Framer JS and fonts | `nextjs/` on the `nextjs-rebuild` branch (not merged yet) |
-| How content changes | Edit in **Framer**, publish; a GitHub Action re-exports and Vercel deploys | Edit the repo (pages) and **HubSpot** (blog posts) |
-| Hosting | Vercel static deploy, behind a Cloudflare Worker on `oglabs.io` | Planned: Cloudflare Workers via OpenNext, like the Senzo and Fruition sites |
+The static Framer mirror at the repo root and its `framer-sync.yml` workflow are retired (the
+workflow is disabled); they are kept only as a rollback target. The rest of this file describes that
+old pipeline.
 
 When the rebuild ships, this repo will look like
 [`senzo-website-monorepo`](https://github.com/Fruition-Service/senzo-website-monorepo) and
