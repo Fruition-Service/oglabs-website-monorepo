@@ -595,7 +595,9 @@ export default function SolutionFinder(props: Props) {
             { objectTypeId: "0-1", name: "lastname", value: rest.join(" ") },
             { objectTypeId: "0-1", name: "email", value: em },
             { objectTypeId: "0-1", name: "company", value: co },
-            { objectTypeId: "0-1", name: "message", value: message },
+            // The form's free-text property; it has no "message" field (label: "Please elaborate on what
+            // you'd be hoping to achieve").
+            { objectTypeId: "0-1", name: "website_form_submission", value: message },
         ].filter((f) => f.value)
 
         const context: Record<string, string> = {

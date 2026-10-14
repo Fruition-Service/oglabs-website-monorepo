@@ -6,9 +6,10 @@
 // a JSON body of fields + context, as in src/components/home/finder/SolutionFinder.tsx.
 //
 // HubSpot form fields (public render definition): firstname*, lastname*, email*, company*, phone,
-// website_form_submission ("Please elaborate on what you'd be hoping to achieve"). This form has no
-// company field, so HubSpot rejects submissions as long as Company Name stays required there.
-// Country/Region has no HubSpot field; it is appended to the message.
+// website_form_submission ("Please elaborate on what you'd be hoping to achieve"). Company Name is
+// required by HubSpot, so this form adds a "Company name*" input that the Framer design does not have
+// (email + company share a row, Country/Region moves to its own row). Country/Region has no HubSpot
+// field; it is appended to the message.
 //
 // States follow the Framer "Form" button: Default -> Loading (spinner) -> "Thank you!" on a 2xx,
 // "Error!" otherwise. Like Framer, the form does not submit again after either.
@@ -48,6 +49,7 @@ function hubspotPayload(form: HTMLFormElement) {
     { objectTypeId: "0-1", name: "firstname", value: get("First Name") },
     { objectTypeId: "0-1", name: "lastname", value: get("Last Name") },
     { objectTypeId: "0-1", name: "email", value: get("Email") },
+    { objectTypeId: "0-1", name: "company", value: get("Company") },
     { objectTypeId: "0-1", name: MESSAGE_FIELD, value: message },
   ].filter((f) => f.value);
   const context: Record<string, string> = { pageUri: window.location.href, pageName: document.title };
@@ -166,6 +168,16 @@ export default function ContactForm() {
               <input type="email" required name="Email" placeholder="" autoComplete="email" className={s.control} />
             </div>
           </label>
+          <label className={s.field}>
+            <Txt className={s.text} preset="p-y0gzpf" color={labelColor} align="left">
+              Company name*
+            </Txt>
+            <div className={s.input}>
+              <input type="text" required name="Company" placeholder="" autoComplete="organization" className={s.control} />
+            </div>
+          </label>
+        </div>
+        <div className={s.row}>
           <label className={s.field}>
             <Txt className={`${s.text} ${s.labelLocation}`} preset="p-y0gzpf" color={labelColor} align="left">
               Country/Region
