@@ -52,7 +52,10 @@
   left: 2px;
   z-index: 1;
   flex: none;
-  width: 50%;
+  /* Framer has width: 50%, which with the 2px left inset pushes the pill 2px past the centre line
+     (and 2px past it the other way in the ClickUp state). Half the track minus the inset keeps it
+     2px from the outer edges and exactly on the centre line in both states. */
+  width: calc(50% - 2px);
   overflow: clip;
   border-radius: 100px 36px 36px 100px;
   background-color: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255));
@@ -63,7 +66,7 @@
 }
 
 .clickup .focus {
-  transform: translateX(calc(100% - 4px));
+  transform: translateX(100%);
   border-radius: 36px 100px 100px 36px;
 }
 
