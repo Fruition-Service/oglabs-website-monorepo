@@ -1,5 +1,10 @@
 # OG Labs website: architecture
 
+> **Superseded 14 Oct 2026.** oglabs.io now runs on the Next.js app in `nextjs/` (Vercel project
+> `oglabs-website`, Root Directory `nextjs`); see [nextjs/README.md](../nextjs/README.md) and the root
+> CLAUDE.md. The Framer mirror described below is retired and `framer-sync.yml` is disabled. This
+> document is kept for the history of the old pipeline and the rollback path.
+
 How oglabs.io is built and served today (a Framer mirror), the services around it, the Next.js
 rebuild, and how to cut over. Start with the [README](../README.md) if you have not.
 

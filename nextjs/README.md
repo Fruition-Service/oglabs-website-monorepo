@@ -53,17 +53,16 @@ publishDate fallback, cover = featured image else first body image) are ported f
 
 ## Hosting
 
+- **oglabs.io (production, since 14 Oct 2026):** Cloudflare Worker `oglabs.io` → Vercel project
+  `oglabs-website` (Kelin Studio team), Root Directory `nextjs`, framework Next.js, env
+  `HUBSPOT_TOKEN`. Every push to `main` deploys. `nextjs/vercel.json` pins the framework: the
+  repo-root `vercel.json` belongs to the retired static mirror and would otherwise win (all 404s).
 - **Preview:** Vercel project `oglabs-next` (scope "edwardzehuazhang's projects"), deployed from this
   folder with `vercel deploy --prod`, `SITE_NOINDEX=1`.
-- **oglabs.io today** is still the static mirror: Cloudflare Worker `oglabs.io` → Vercel project
-  `oglabs-website` (Kelin Studio team) serving the repo root. The `framer-sync` workflow that
-  refreshed it is disabled.
-
-Cutover (not done yet): in the `oglabs-website` project set Root Directory to `nextjs`, framework
-preset Next.js, add `HUBSPOT_TOKEN`, merge this branch to `main`. The Cloudflare Worker keeps
-proxying to `oglabs-website.vercel.app` unchanged. Rollback: Root Directory back to empty, framework
-"Other", redeploy. Retire afterwards: `framer-sync.yml`, the `oglabs-framer-poller` and
-`framer-hubspot-sync` Workers.
+- Rollback: promote the last static-mirror production deployment in Vercel, or set Root Directory
+  back to empty with framework "Other" and redeploy `main`.
+- Retired: `framer-sync.yml` (disabled). Still running but no longer needed: the
+  `oglabs-framer-poller` and `framer-hubspot-sync` Workers.
 
 ## Parity checks
 
