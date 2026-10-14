@@ -1,0 +1,5 @@
+qa
+docs
+.next
+node_modules
+.env*
