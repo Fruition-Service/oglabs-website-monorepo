@@ -6,6 +6,7 @@ export type PostSummary = {
   description: string;
   /** Absolute URL or /framer/<file> path. */
   cover?: string;
+  coverAlt?: string;
   category: "News" | "Productivity" | "Revenue" | "SaaS" | string;
   featured: boolean;
   /** ISO date. */
@@ -13,10 +14,11 @@ export type PostSummary = {
   authorName: string;
   authorPosition?: string;
   authorPicture?: string;
+  authorPictureAlt?: string;
 };
 
 export type Post = PostSummary & {
-  /** Body HTML, rendered through the rich-text styles. */
+  /** Body HTML (plain semantic tags, no classes), rendered through the rich-text styles. */
   html: string;
   source: "framer" | "hubspot";
 };

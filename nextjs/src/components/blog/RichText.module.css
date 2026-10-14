@@ -1,0 +1,193 @@
+/* Framer rich text (framer-text + the body's style presets), resolved from Framer's CSS-variable
+ * cascade into plain properties. Spacing: every block except the first gets margin-top = its own
+ * paragraph spacing (p 20px, headings 40px, blockquote 24px) or the container's 24px (lists,
+ * tables, untyped blocks). */
+/* The container itself keeps the page's inherited font (Framer: body 12px sans-serif); table cells
+ * inherit it too, which is what their 16ch min-width is measured in. */
+.rich {
+  position: relative;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.rich :global(:where(td, th)) {
+  font-family: sans-serif;
+  font-size: 12px;
+  font-feature-settings: normal;
+}
+
+.rich :global(:where(p, li)) {
+  font-family: "Inter", "Inter Placeholder", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 140%;
+  color: var(--token-ead00dcb-2b22-4edd-af15-9859b50e46de, #000000a3);
+  text-align: start;
+  font-feature-settings: var(--ffs-inter);
+}
+
+.rich :global(:where(h1, h2, h3)) {
+  font-family: "Inter Display", "Inter Display Placeholder", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 100%;
+  color: var(--token-442a8080-47a9-427e-9581-c23ce6c42231, #000);
+  text-align: start;
+  font-feature-settings: var(--ffs-inter);
+}
+.rich :global(h1) { font-size: 72px; }
+.rich :global(h2) { font-size: 56px; }
+.rich :global(h3) { font-size: 40px; }
+
+/* Untyped blocks fall back to Framer's text defaults (Inter 16px, 1.2em, black). */
+.rich :global(:where(h4, h5, h6)) {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2em;
+  color: #000;
+}
+
+.rich :global(:where(p, div, h1, h2, h3, h4, h5, h6, ol, ul, figure, pre, blockquote, table, img, hr)) {
+  margin: 0;
+  padding: 0;
+}
+.rich > :global(*:not(:first-child)) { margin-top: 24px; }
+.rich > :global(p:not(:first-child)) { margin-top: 20px; }
+.rich > :global(:where(h2, h3):not(:first-child)) { margin-top: 40px; }
+.rich > :global(h1:not(:first-child)) { margin-top: 0; }
+.rich > :global(blockquote:not(:first-child)) { margin-top: 24px; }
+/* Paragraphs nested in a list item, cell or quote follow their own preset spacing too. */
+.rich :global(:where(li, td, th, blockquote) > p:not(:first-child)) { margin-top: 20px; }
+.rich :global(blockquote > p:not(:first-child)) { margin-top: 24px; }
+
+/* Lists: no native markers; a bullet / number sits in a 2ch gutter (Framer's li.framer-text). */
+.rich :global(:where(ul, ol)) {
+  position: relative;
+  padding-inline-start: 0;
+  list-style: none;
+}
+.rich :global(li) {
+  position: relative;
+  padding-inline-start: 2ch;
+  list-style: "";
+  counter-increment: list-item;
+}
+.rich :global(ul > li::before) {
+  content: "•";
+  position: absolute;
+  inset-inline-start: 0;
+}
+.rich :global(ol > li::before) {
+  content: counter(list-item, decimal) ".";
+  position: absolute;
+  inset-inline-start: 0;
+  font-variant-numeric: tabular-nums;
+}
+.rich :global(li > :where(ul, ol)) { margin-top: 0; }
+
+.rich :global(strong), .rich :global(b) { font-weight: 700; }
+.rich :global(em), .rich :global(i) { font-style: italic; }
+.rich :global(em strong), .rich :global(strong em) { font-weight: 700; font-style: italic; }
+
+/* Links: preset 5g7c8e (OG orange, black on hover) + the container's underline. */
+.rich :global(a) {
+  color: var(--token-3756c145-13f1-478e-9253-4a4e46de6da3, #01ffab);
+  text-decoration: underline;
+}
+.rich :global(a:hover) {
+  color: var(--token-442a8080-47a9-427e-9581-c23ce6c42231, #000);
+}
+
+/* Blockquote preset 1idq5h6: Geist 18px, a 2px rule on the left. */
+.rich :global(blockquote) {
+  position: relative;
+  padding: 0 0 0 22px;
+}
+.rich :global(blockquote::before) {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 2px;
+  height: 100%;
+  background-color: #ddd;
+  border-radius: 1px;
+}
+.rich :global(blockquote), .rich :global(blockquote :where(p, li)) {
+  font-family: "Geist", "Geist Placeholder", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 140%;
+  color: var(--token-307e8a82-e5c7-4509-9db0-a64d9f69c46e, #0000007a);
+  font-feature-settings: normal;
+}
+.rich :global(blockquote strong) { font-weight: 700; }
+
+/* Table preset j4k40f inside Framer's table wrapper (a <figure>). */
+.rich :global(figure) {
+  display: block;
+  overflow: auto;
+}
+.rich :global(table) {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: auto;
+  word-break: normal;
+  border: 1px solid #99999940;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.rich :global(:where(td, th)) {
+  padding: 10px;
+  overflow-wrap: anywhere;
+  vertical-align: top;
+  min-width: 16ch;
+}
+.rich :global(th) {
+  background-color: #9999991a;
+}
+.rich :global(tr + tr td), .rich :global(tr + tr th),
+.rich :global(thead + tbody tr:first-child td), .rich :global(thead + tbody tr:first-child th) {
+  border-top: 1px solid #99999940;
+}
+.rich :global(td + td), .rich :global(th + th), .rich :global(td + th), .rich :global(th + td) {
+  border-left: 1px solid #99999940;
+}
+
+/* Inline images (HubSpot bodies): Framer's .framer-image. */
+.rich :global(img) {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.rich :global(code) {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+}
+.rich :global(pre) {
+  white-space: pre-wrap;
+}
+.rich :global(hr) {
+  border: 0;
+  border-top: 1px solid var(--token-a1d81393-c55e-4299-ad69-bacd80adc6f2, #0000001f);
+}
+
+@media (max-width: 1199.98px) {
+  .rich :global(h1) { font-size: 48px; }
+  .rich :global(h2) { font-size: 36px; }
+  .rich :global(h3) { font-size: 28px; }
+}
+
+@media (max-width: 809.98px) {
+  .rich :global(h1) { font-size: 36px; }
+  .rich :global(h2) { font-size: 28px; }
+  .rich :global(h3) { font-size: 26px; }
+}
