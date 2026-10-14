@@ -1,0 +1,29 @@
+/* "Elements/Logo" (Framer module xtMmwEE4u, class framer-5KLpI). Hover: opacity .65, tween 0.2s. */
+.logo {
+  position: relative;
+  display: flex;
+  flex-flow: row;
+  place-content: center;
+  align-items: center;
+  gap: 10.5px 0.87px;
+  width: min-content;
+  height: min-content;
+  overflow: visible;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.logo:hover {
+  opacity: 0.65;
+}
+
+.art {
+  position: relative;
+  flex-shrink: 0;
+  width: 88px;
+  height: 24px;
+  image-rendering: pixelated;
+  background-size: 100% 100%;
+}

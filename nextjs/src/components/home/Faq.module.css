@@ -1,0 +1,116 @@
+/* "FAQ" section (framer-1k38m46 > framer-9wptdu). */
+
+.section {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+  overflow: clip;
+}
+
+/* framer-9wptdu */
+.container {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 1440px;
+  height: min-content;
+  padding: 120px 24px;
+  overflow: clip;
+}
+
+/* framer-7sbpds: stretches to the accordion column, button pinned to the bottom. */
+.heading {
+  position: relative;
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-self: stretch;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: space-between;
+  width: 1px;
+  height: auto;
+  padding: 0;
+  overflow: visible;
+}
+
+/* framer-eqhss1 */
+.title {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  height: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* The 1o4nxrd preset carries --framer-text-wrap: balance in Framer (not in presets.css). */
+.h2 {
+  margin: 0;
+  text-align: left;
+  text-wrap: balance;
+}
+
+/* framer-1dkkza9-container */
+.button {
+  position: relative;
+  flex: none;
+  width: auto;
+  height: auto;
+}
+
+/* framer-ipc2mv-container */
+.faq {
+  position: relative;
+  flex: none;
+  width: 66%;
+  height: auto;
+}
+
+@media (max-width: 1199.98px) {
+  .container {
+    padding: 80px 24px;
+  }
+}
+
+@media (max-width: 809.98px) {
+  .container {
+    flex-direction: column;
+    padding: 60px 24px;
+  }
+
+  .heading {
+    flex: none;
+    align-self: unset;
+    justify-content: center;
+    gap: 24px;
+    width: 100%;
+    height: min-content;
+  }
+
+  .faq {
+    width: 100%;
+  }
+}

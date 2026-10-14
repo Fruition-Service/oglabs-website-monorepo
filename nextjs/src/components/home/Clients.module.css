@@ -1,0 +1,71 @@
+/* "Clients" (framer-1y3j59): one centred line of copy and the "Elements/Logos Ticker". */
+.clients {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-flow: column;
+  flex: none;
+  place-content: center flex-start;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+  overflow: visible;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-flow: column;
+  flex: none;
+  place-content: flex-start center;
+  align-items: flex-start;
+  gap: 24px;
+  width: 100%;
+  max-width: 1440px;
+  height: min-content;
+  padding: 120px 24px;
+  overflow: visible;
+}
+
+.heading {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  flex: none;
+  place-content: flex-start center;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  height: min-content;
+}
+
+.heading p {
+  width: 100%;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--token-ead00dcb-2b22-4edd-af15-9859b50e46de, rgba(0, 0, 0, 0.64));
+}
+
+@media (max-width: 1199.98px) {
+  .container {
+    padding: 80px 24px;
+  }
+}
+
+@media (max-width: 809.98px) {
+  .container {
+    padding: 60px 24px;
+  }
+
+  /* phone uses the 16px preset (framer-styles-preset-knz921) */
+  .heading p {
+    font-size: 16px;
+    text-wrap: wrap;
+  }
+}

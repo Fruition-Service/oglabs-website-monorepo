@@ -1,0 +1,55 @@
+/* Framer RichTextContainer widths. "Fill" wraps inside the parent; "Fit" sizes to the text and
+   never wraps (white-space: pre), so long lines overflow narrow layouts just like on Framer. */
+.fill,
+.fit {
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  height: auto;
+}
+
+.fill {
+  width: 100%;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.fit {
+  width: auto;
+  white-space: pre;
+}
+
+/* Framer presets 1ylqbua (h1), 1o4nxrd (h2) and dH33CI0LZ/mzxkxl set --framer-text-wrap: balance. */
+.balance {
+  text-wrap: balance;
+}
+
+/* Preset 1ylqbua ("Heading 1"): 80 / 52 / 48px, line-height 90%. */
+.h1 {
+  font-family: "Inter Display", "Inter Display Placeholder", sans-serif;
+  font-size: 80px;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: -0.04em;
+  line-height: 90%;
+  color: var(--token-442a8080-47a9-427e-9581-c23ce6c42231, #000);
+  font-feature-settings: var(--ffs-inter);
+  text-transform: none;
+  text-decoration: none;
+}
+
+@media (max-width: 1199.98px) {
+  .h1 {
+    font-size: 52px;
+  }
+}
+
+@media (max-width: 809.98px) {
+  .h1 {
+    font-size: 48px;
+  }
+}

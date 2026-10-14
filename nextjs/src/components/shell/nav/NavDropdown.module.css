@@ -1,0 +1,57 @@
+.anchor {
+  position: relative;
+  flex: none;
+  width: auto;
+  height: auto;
+}
+
+/* Portal layer: only the card and the bridge take pointer events. */
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: 11;
+  pointer-events: none;
+}
+
+.bridge {
+  position: fixed;
+  pointer-events: auto;
+}
+
+/* framer-r9s0rd / framer-5bly4w / framer-1tn7q7u */
+.card {
+  position: fixed;
+  pointer-events: auto;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  align-content: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: min-content;
+  height: min-content;
+  padding: 10px;
+  overflow: clip;
+  background-color: var(--token-262ecc22-57b7-472d-83d9-e78a1e1f93a7, rgb(255, 255, 255));
+  border-radius: 24px;
+  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.05);
+  will-change: transform;
+}
+
+/* framer-11xp3hz */
+.list {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: flex-start;
+  gap: 0;
+  width: min-content;
+  height: min-content;
+  padding: 0;
+  overflow: visible;
+}

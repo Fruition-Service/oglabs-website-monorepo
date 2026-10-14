@@ -1,0 +1,27 @@
+/* "About/Team Member" (component YJJbE): Default and "Upside Down" (mark at the bottom, info on top). */
+.card { --border-bottom-width: 1px; --border-color: var(--token-50ca2844-00a6-4286-bbb3-9d3e4b594ec9, rgb(228, 228, 228)); --border-left-width: 1px; --border-right-width: 1px; --border-style: solid; --border-top-width: 1px; background-color: var(--token-480f2f7a-da00-45c5-92b4-5cc867c511e6, rgb(240, 240, 240)); border-radius: 16px; display: flex; flex-direction: column; flex-wrap: nowrap; align-items: center; justify-content: center; gap: 12px; padding: 0; position: relative; width: 100%; overflow: clip; }
+.card::after { content: ""; border-width: var(--border-top-width, 0) var(--border-right-width, 0) var(--border-bottom-width, 0) var(--border-left-width, 0); border-color: var(--border-color, none); border-style: var(--border-style, none); width: 100%; height: 100%; position: absolute; box-sizing: border-box; left: 0; top: 0; border-radius: inherit; pointer-events: none; }
+.mark { display: flex; flex: none; flex-direction: row; align-items: center; justify-content: center; gap: 12px; left: 12px; top: 12px; position: absolute; width: min-content; z-index: 2; }
+.markArt { height: 21px; width: 22px; position: relative; image-rendering: pixelated; flex-shrink: 0; background-size: 100% 100%; }
+.picture { display: flex; flex: none; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 0; position: relative; width: 100%; overflow: clip; }
+.photo { flex: none; height: 460px; position: relative; width: 100%; z-index: 1; border-radius: 8px; }
+.gradient {
+  position: absolute; inset: 0; overflow: hidden; z-index: 1; flex: none;
+  background-color: var(--token-3756c145-13f1-478e-9253-4a4e46de6da3, rgb(1, 255, 171));
+  border-radius: 8px;
+  -webkit-mask: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.9) 100%) add;
+  mask: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.9) 100%) add;
+  opacity: 0.64;
+}
+.info { display: flex; flex: none; flex-direction: row; flex-wrap: nowrap; align-items: flex-end; justify-content: space-between; bottom: 16px; left: 12px; right: 12px; position: absolute; padding: 0; z-index: 2; overflow: visible; }
+.socials { display: flex; flex: none; flex-direction: column; align-items: center; justify-content: center; gap: 4px; position: relative; width: min-content; z-index: 2; }
+.namePos { display: flex; flex: 1 0 0px; flex-direction: column; align-items: flex-end; justify-content: center; gap: 0; position: relative; width: 1px; }
+.name { flex: none; height: auto; position: relative; white-space: pre; width: auto; }
+.position { flex: none; height: auto; position: relative; white-space: pre-wrap; width: 192px; word-break: break-word; word-wrap: break-word; }
+.upside .mark { bottom: 12px; top: unset; }
+.upside .info { align-items: flex-start; bottom: unset; top: 16px; }
+
+/* "About/Social Link": 36px dark tile, orange on hover. */
+.social { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 12px; padding: 6px; position: relative; text-decoration: none; width: min-content; cursor: pointer; border-radius: 8px; background-color: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, rgb(42, 47, 54)); transition: background-color 0.2s cubic-bezier(0.77, 0, 0.175, 1); }
+.social:hover { background-color: var(--token-3756c145-13f1-478e-9253-4a4e46de6da3, rgb(247, 59, 31)); }
+.icon { aspect-ratio: 1; flex: none; height: auto; position: relative; width: 24px; background-color: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); }

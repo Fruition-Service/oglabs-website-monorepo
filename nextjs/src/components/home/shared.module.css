@@ -1,0 +1,35 @@
+/* Framer's `data-border="true"` outline: an ::after layer drawn from --border-* variables (set them
+   inline or in the element's own class). The element needs position: relative (or absolute). */
+.border::after {
+  content: "";
+  border-width: var(--border-top-width, 0) var(--border-right-width, 0) var(--border-bottom-width, 0)
+    var(--border-left-width, 0);
+  border-color: var(--border-color, none);
+  border-style: var(--border-style, none);
+  box-sizing: border-box;
+  border-radius: inherit;
+  corner-shape: inherit;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Page-level dashed dividers between Pricing / Blog / FAQ (framer-16jvcr5, -842006, -9scwau). */
+.divider {
+  --border-bottom-width: 8px;
+  --border-color: var(--token-a1d81393-c55e-4299-ad69-bacd80adc6f2, #0000001f);
+  --border-left-width: 0px;
+  --border-right-width: 0px;
+  --border-style: dashed;
+  --border-top-width: 0px;
+  max-width: 1440px;
+  height: 1px;
+  overflow: clip;
+  z-index: 2;
+  flex: none;
+  width: 96%;
+  position: relative;
+}

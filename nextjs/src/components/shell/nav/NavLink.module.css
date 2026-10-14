@@ -1,0 +1,61 @@
+/* "Navigation/Link" (Framer class framer-I0CzE). Desktop: mono 14px label, padding 12px 16px, and a
+ * rounded "BG" that grows from a sliver (insets 16/49) to the full link on hover, tween 0.2s
+ * ease [0.25, 0.1, 0.25, 1]. Mobile: big Inter Display 32px label, no padding, no BG. */
+.link {
+  position: relative;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  gap: 12px;
+  width: min-content;
+  height: min-content;
+  padding: 12px 16px;
+  overflow: visible;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.bg {
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  position: absolute;
+  z-index: 1;
+  top: 16px;
+  bottom: 16px;
+  left: 49px;
+  /* Framer measures a negative-width box as 0 wide at left:49px, so it never starts past it. */
+  right: min(49px, calc(100% - 49px));
+  overflow: clip;
+  border-radius: 100px;
+  background-color: rgba(0, 0, 0, 0);
+  transition:
+    top 0.2s var(--ease),
+    bottom 0.2s var(--ease),
+    left 0.2s var(--ease),
+    right 0.2s var(--ease),
+    background-color 0.2s var(--ease);
+}
+
+.link:hover .bg,
+.link[data-hover="true"] .bg {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--token-88d213e0-d95e-4b98-8c02-65d9312f0240, rgba(0, 0, 0, 0.04));
+}
+
+.text {
+  position: relative;
+  flex: none;
+  width: auto;
+  height: auto;
+  white-space: pre;
+  text-align: left;
+}
+
+.mobile {
+  padding: 0;
+}

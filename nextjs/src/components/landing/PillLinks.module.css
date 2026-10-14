@@ -1,0 +1,51 @@
+.row,
+.group {
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: min-content;
+  background-color: #fff;
+}
+
+.row {
+  max-width: 1440px;
+}
+
+.pill {
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: min-content;
+  height: min-content;
+  border-radius: 100px;
+  background-color: #fff;
+  text-decoration: none;
+}
+
+.pill::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--token-50ca2844-00a6-4286-bbb3-9d3e4b594ec9, #e4e4e4);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.box {
+  position: relative;
+  flex: none;
+  width: auto;
+  height: auto;
+  background-color: #fff;
+}

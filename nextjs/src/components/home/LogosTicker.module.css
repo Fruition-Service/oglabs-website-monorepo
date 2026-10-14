@@ -1,0 +1,62 @@
+/* "Elements/Logos Ticker" (framer-t5qav): a 60px row of 37 logos (100px boxes, 32px gap) drifting
+   right at 50px/s (Framer ticker: velocity 50, direction reverse, hover factor 100%, i.e. no
+   slow-down). The row is centred like Framer's `width: min-content` track and starts 32px left
+   (Framer's initial translateX(-32px)); a copy sits in front of it so the loop never shows a gap. */
+.ticker {
+  --row: 4852px; /* 37 * 100px + 36 * 32px */
+  --period: 4884px; /* row + gap */
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  place-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  padding: 0;
+  overflow: clip;
+}
+
+.track {
+  position: absolute;
+  top: 0;
+  left: calc(50% - var(--row) / 2 - 32px - var(--period));
+  display: flex;
+  flex-flow: row;
+  gap: 32px;
+  height: 60px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  will-change: transform;
+  animation: drift 97.68s linear infinite;
+  animation-play-state: paused;
+}
+
+.running {
+  animation-play-state: running;
+}
+
+@keyframes drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(var(--period));
+  }
+}
+
+.item {
+  position: relative;
+  flex: none;
+  width: 100px;
+  height: 100%;
+  overflow: visible;
+}
+
+.item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}

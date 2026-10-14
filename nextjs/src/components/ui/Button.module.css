@@ -1,0 +1,179 @@
+/* "Buttons/Primary" (Framer module N2rUJJski, class framer-3r3W1).
+ *
+ * The 16 Framer variants are three independent axes, set per breakpoint with classes:
+ *   kind:  base | light | dark | transparent   (colours, border, hover colours)
+ *   size:  reg | small                          (padding, text preset 16px / 14px, icon 20 / 16)
+ *   hover: on | off                             ("Mobile" variants have no hover gesture, cursor unset)
+ * Desktop classes are unscoped; tablet / phone classes sit in Framer's breakpoint media queries.
+ *
+ * Hover (Framer gesture variant, tween 0.2s ease [0.77, 0, 0.175, 1]): the label rolls up. Framer
+ * swaps the first copy to `position:absolute; top:-22px` and the second copy (parked at
+ * `bottom:-22px`) to `position:relative`, and animates the layout change; here both copies translate
+ * by -22px. Transparent variants also fill with #333 and turn the label and arrow white. */
+
+.btn {
+  --ease: cubic-bezier(0.77, 0, 0.175, 1);
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  gap: 8px;
+  width: min-content;
+  height: min-content;
+  padding: var(--pad);
+  overflow: clip;
+  border: 0;
+  border-radius: 100px;
+  margin: 0;
+  background-color: var(--bg);
+  text-decoration: none;
+  cursor: pointer;
+  font: inherit;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.2s var(--ease);
+}
+
+/* Framer draws the border as an ::after overlay (data-border), so it never changes the box size. */
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border: var(--bw) solid var(--bc);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.label {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  width: min-content;
+  height: min-content;
+  padding: 0;
+  overflow: clip;
+}
+
+.t1,
+.t2 {
+  display: block;
+  flex: none;
+  white-space: pre;
+  user-select: none;
+  -webkit-user-select: none;
+  text-align: center;
+  color: var(--fg);
+  transition:
+    transform 0.2s var(--ease),
+    color 0.2s var(--ease);
+}
+
+.t1 {
+  position: relative;
+}
+
+.t2 {
+  position: absolute;
+  left: 0;
+  bottom: -22px;
+  z-index: 1;
+}
+
+.icon {
+  flex: none;
+  position: relative;
+  display: block;
+  width: var(--icon);
+  height: var(--icon);
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.icon path {
+  stroke: var(--ic);
+  transition: stroke 0.2s var(--ease);
+}
+
+.btn:hover {
+  background-color: var(--hbg);
+}
+
+.btn:hover .t1,
+.btn:hover .t2 {
+  transform: translateY(var(--shift));
+  color: var(--hfg);
+}
+
+/* Framer parks the outgoing copy at top:-20px (not -22px) in Light Small / Transparent Small. */
+.btn:hover .t1 {
+  transform: translateY(var(--shift1, var(--shift)));
+}
+
+.btn:hover .icon path {
+  stroke: var(--hic);
+}
+
+/* Text presets used by the label (copied from presets.css: 1721m7s and cguwu). */
+.reg16 {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 140%;
+  text-transform: uppercase;
+  font-style: normal;
+}
+
+/* ---------- desktop (always) ---------- */
+.d_base { --bg: var(--token-3756c145-13f1-478e-9253-4a4e46de6da3, rgb(245, 80, 56)); --bw: 0px; --bc: rgba(0, 0, 0, 0); --fg: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); --ic: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); --hbg: var(--bg); --hfg: var(--fg); --hic: var(--ic); }
+.d_light { --bg: var(--token-480f2f7a-da00-45c5-92b4-5cc867c511e6, rgb(240, 240, 240)); --bw: 1px; --bc: var(--token-50ca2844-00a6-4286-bbb3-9d3e4b594ec9, rgb(228, 228, 228)); --fg: var(--token-746f8d3a-e21f-466b-8f82-1de688da3a79, rgb(42, 47, 54)); --ic: var(--token-442a8080-47a9-427e-9581-c23ce6c42231, rgb(0, 0, 0)); --hbg: var(--bg); --hfg: var(--fg); --hic: var(--ic); }
+.d_dark { --bg: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, rgb(42, 47, 54)); --bw: 0px; --bc: rgba(0, 0, 0, 0); --fg: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); --ic: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); --hbg: var(--bg); --hfg: var(--fg); --hic: var(--ic); }
+.d_transparent { --bg: rgba(0, 0, 0, 0); --bw: 1px; --bc: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, rgb(42, 47, 54)); --fg: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, rgb(42, 47, 54)); --ic: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, rgb(42, 47, 54)); --hbg: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, rgb(42, 47, 54)); --hfg: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); --hic: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); }
+.d_reg { --pad: 16px 20px; --icon: 20px; }
+.d_reg .t1, .d_reg .t2 { font-size: 16px; }
+.d_small { --pad: 12px 16px; --icon: 16px; }
+.d_small .t1, .d_small .t2 { font-size: 14px; }
+.d_up20 { --shift1: -20px; }
+.d_up22 { --shift1: -22px; }
+.d_hover { --shift: -22px; cursor: pointer; }
+.d_nohover { --shift: 0px; --shift1: 0px; --hbg: var(--bg); --hfg: var(--fg); --hic: var(--ic); cursor: unset; }
+
+/* ---------- tablet ---------- */
+@media (max-width: 1199.98px) {
+  .t_base { --bg: var(--token-3756c145-13f1-478e-9253-4a4e46de6da3, rgb(245, 80, 56)); --bw: 0px; --bc: rgba(0, 0, 0, 0); --fg: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); --ic: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); --hbg: var(--bg); --hfg: var(--fg); --hic: var(--ic); }
+  .t_light { --bg: var(--token-480f2f7a-da00-45c5-92b4-5cc867c511e6, rgb(240, 240, 240)); --bw: 1px; --bc: var(--token-50ca2844-00a6-4286-bbb3-9d3e4b594ec9, rgb(228, 228, 228)); --fg: var(--token-746f8d3a-e21f-466b-8f82-1de688da3a79, rgb(42, 47, 54)); --ic: var(--token-442a8080-47a9-427e-9581-c23ce6c42231, rgb(0, 0, 0)); --hbg: var(--bg); --hfg: var(--fg); --hic: var(--ic); }
+  .t_dark { --bg: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, rgb(42, 47, 54)); --bw: 0px; --bc: rgba(0, 0, 0, 0); --fg: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); --ic: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); --hbg: var(--bg); --hfg: var(--fg); --hic: var(--ic); }
+  .t_transparent { --bg: rgba(0, 0, 0, 0); --bw: 1px; --bc: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, rgb(42, 47, 54)); --fg: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, rgb(42, 47, 54)); --ic: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, rgb(42, 47, 54)); --hbg: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, rgb(42, 47, 54)); --hfg: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); --hic: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); }
+  .t_reg { --pad: 16px 20px; --icon: 20px; }
+  .t_reg .t1, .t_reg .t2 { font-size: 16px; }
+  .t_small { --pad: 12px 16px; --icon: 16px; }
+  .t_small .t1, .t_small .t2 { font-size: 14px; }
+  .t_up20 { --shift1: -20px; }
+  .t_up22 { --shift1: -22px; }
+  .t_hover { --shift: -22px; cursor: pointer; }
+  .t_nohover { --shift: 0px; --shift1: 0px; --hbg: var(--bg); --hfg: var(--fg); --hic: var(--ic); cursor: unset; }
+}
+
+/* ---------- phone ---------- */
+@media (max-width: 809.98px) {
+  .p_base { --bg: var(--token-3756c145-13f1-478e-9253-4a4e46de6da3, rgb(245, 80, 56)); --bw: 0px; --bc: rgba(0, 0, 0, 0); --fg: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); --ic: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); --hbg: var(--bg); --hfg: var(--fg); --hic: var(--ic); }
+  .p_light { --bg: var(--token-480f2f7a-da00-45c5-92b4-5cc867c511e6, rgb(240, 240, 240)); --bw: 1px; --bc: var(--token-50ca2844-00a6-4286-bbb3-9d3e4b594ec9, rgb(228, 228, 228)); --fg: var(--token-746f8d3a-e21f-466b-8f82-1de688da3a79, rgb(42, 47, 54)); --ic: var(--token-442a8080-47a9-427e-9581-c23ce6c42231, rgb(0, 0, 0)); --hbg: var(--bg); --hfg: var(--fg); --hic: var(--ic); }
+  .p_dark { --bg: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, rgb(42, 47, 54)); --bw: 0px; --bc: rgba(0, 0, 0, 0); --fg: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); --ic: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); --hbg: var(--bg); --hfg: var(--fg); --hic: var(--ic); }
+  .p_transparent { --bg: rgba(0, 0, 0, 0); --bw: 1px; --bc: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, rgb(42, 47, 54)); --fg: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, rgb(42, 47, 54)); --ic: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, rgb(42, 47, 54)); --hbg: var(--token-941dc06b-87ea-4bfd-9f0e-231bee443435, rgb(42, 47, 54)); --hfg: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); --hic: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255)); }
+  .p_reg { --pad: 16px 20px; --icon: 20px; }
+  .p_reg .t1, .p_reg .t2 { font-size: 16px; }
+  .p_small { --pad: 12px 16px; --icon: 16px; }
+  .p_small .t1, .p_small .t2 { font-size: 14px; }
+  .p_up20 { --shift1: -20px; }
+  .p_up22 { --shift1: -22px; }
+  .p_hover { --shift: -22px; cursor: pointer; }
+  .p_nohover { --shift: 0px; --shift1: 0px; --hbg: var(--bg); --hfg: var(--fg); --hic: var(--ic); cursor: unset; }
+}

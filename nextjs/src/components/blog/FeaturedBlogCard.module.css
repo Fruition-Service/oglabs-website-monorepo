@@ -1,0 +1,341 @@
+/* "Blog/Featured Blog Card" (Framer framer-dyBnu) + "Buttons/Read More" (framer-EVjzm). */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  height: min-content;
+  padding: 16px;
+  overflow: clip;
+  background-color: var(--token-480f2f7a-da00-45c5-92b4-5cc867c511e6, rgb(45, 41, 42));
+  border-radius: 16px;
+  will-change: transform;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--token-50ca2844-00a6-4286-bbb3-9d3e4b594ec9, rgb(216, 216, 216));
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.cover {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 50%;
+  height: min-content;
+  padding: 0;
+  overflow: clip;
+  border-radius: 8px;
+  will-change: transform;
+}
+
+.image {
+  position: relative;
+  flex: 1 0 0px;
+  width: 1px;
+  height: 400px;
+}
+
+.image img,
+.picture img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-position: center;
+  object-fit: cover;
+}
+
+.category {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  display: flex;
+  flex: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: min-content;
+  height: min-content;
+  padding: 4px 10px;
+  overflow: clip;
+  border-radius: 100px;
+  background-color: var(--token-e1ae94ab-0bc7-4c0c-bffe-d6d47ba7ea25, rgba(255, 255, 255, 0.64));
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  will-change: transform;
+}
+
+.category p {
+  position: relative;
+  flex: none;
+  white-space: pre;
+  text-align: left;
+  color: var(--token-442a8080-47a9-427e-9581-c23ce6c42231, rgb(0, 0, 0));
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex: 1 0 0px;
+  flex-direction: column;
+  align-self: stretch;
+  align-items: center;
+  justify-content: space-between;
+  width: 1px;
+  height: auto;
+  padding: 0;
+  overflow: visible;
+}
+
+.titleDesc {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+}
+
+.titleDescInner {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+}
+
+.text {
+  position: relative;
+  flex: none;
+  width: 100%;
+  height: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.left {
+  text-align: left;
+}
+
+.muted {
+  color: var(--token-ead00dcb-2b22-4edd-af15-9859b50e46de, rgba(0, 0, 0, 0.64));
+  text-align: left;
+}
+
+.authorButton {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: min-content;
+  padding: 0;
+}
+
+.author {
+  position: relative;
+  display: flex;
+  flex: 1 0 0px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 1px;
+  height: min-content;
+  padding: 0;
+}
+
+.picture {
+  position: relative;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  overflow: clip;
+  border-radius: 12px;
+  will-change: transform;
+}
+
+.authorText {
+  position: relative;
+  display: flex;
+  flex: 1 0 0px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 1px;
+  height: min-content;
+  padding: 0;
+}
+
+.readMoreContainer {
+  position: relative;
+  flex: none;
+  width: auto;
+  height: auto;
+}
+
+/* "Buttons/Read More", Desktop variant. Hover: the orange disc grows left behind the label
+   (left 0 -> -107px), the label turns white and the arrow turns -45deg; tween 0.2s. */
+.readMore {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: min-content;
+  height: min-content;
+  padding: 0 0 0 20px;
+  overflow: clip;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 0;
+}
+
+.readMoreLabel {
+  position: relative;
+  z-index: 2;
+  flex: none;
+  white-space: pre;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.readMoreLabel p {
+  text-align: center;
+  color: var(--token-442a8080-47a9-427e-9581-c23ce6c42231, rgb(0, 0, 0));
+  transition: color 0.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.arrow {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: min-content;
+  height: min-content;
+  padding: 12px;
+  overflow: visible;
+}
+
+.arrowBg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: clip;
+  border-radius: 100px;
+  background-color: var(--token-3756c145-13f1-478e-9253-4a4e46de6da3, rgb(1, 255, 171));
+  will-change: transform;
+  transition: left 0.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.arrowIcon {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  aspect-ratio: 1;
+  transform: rotate(0deg);
+  transition: transform 0.2s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.arrowIcon svg {
+  display: flex;
+}
+
+.readMore:hover .arrowBg {
+  left: -107px;
+}
+
+.readMore:hover .readMoreLabel p {
+  color: var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255));
+}
+
+.readMore:hover .arrowIcon {
+  transform: rotate(-45deg);
+}
+
+/* Mobile variant: stacked, Read More is a grey pill without hover. */
+@media (max-width: 809.98px) {
+  .card {
+    flex-direction: column;
+  }
+  .cover {
+    width: 100%;
+  }
+  .image {
+    height: 300px;
+  }
+  .content {
+    align-self: auto;
+    flex: none;
+    justify-content: center;
+    gap: 36px;
+    width: 100%;
+    height: min-content;
+  }
+  .authorButton {
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 12px;
+  }
+  .author {
+    flex: none;
+    width: 100%;
+  }
+  .readMore {
+    cursor: unset;
+    background-color: var(--token-50ca2844-00a6-4286-bbb3-9d3e4b594ec9, rgb(228, 228, 228));
+    border-radius: 100px;
+    will-change: transform;
+  }
+  .readMore:hover .arrowBg {
+    left: 0;
+  }
+  .readMore:hover .readMoreLabel p {
+    color: var(--token-442a8080-47a9-427e-9581-c23ce6c42231, rgb(0, 0, 0));
+  }
+  .readMore:hover .arrowIcon {
+    transform: none;
+  }
+}
