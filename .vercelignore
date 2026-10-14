@@ -1,5 +1,6 @@
-# The Vercel deployment serves the repository root (vercel.json outputDirectory "."),
-# so anything that is not part of the website must be listed here or it goes live.
+# Since the Next.js cutover the Vercel project builds nextjs/ (Root Directory "nextjs"); this file
+# only matters for a rollback to the static mirror, which served the repository root
+# (vercel.json outputDirectory "."). nextjs/ must NOT be listed here or the Next.js build loses its source.
 /README.md
 /CLAUDE.md
 /AGENTS.md
@@ -8,5 +9,4 @@
 /sync-state.json
 /scripts
 /.github
-/nextjs
 /.env*
