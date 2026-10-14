@@ -1,10 +1,10 @@
 // Framer page /contact (module isc8sCDM): section "Main" with the photo card, heading, benefits and
-// the HubSpot contact form (Framer publish of 14 Oct 2026, module MQ9h7EPI1D…).
+// the contact form (Framer design; submits to HubSpot, see ContactForm.tsx).
 import Badge from "@/components/ui/Badge";
 import { Words } from "@/components/blog/Motion";
 import { Appear, type Spring } from "@/components/about/Motion";
 import FramerImage from "@/components/about/FramerImage";
-import HubSpotForm from "./HubSpotForm";
+import ContactForm from "./ContactForm";
 import s from "./Contact.module.css";
 
 const WHITE = "var(--token-a9ada049-76e9-4f1f-8c74-adc974e9300d, rgb(255, 255, 255))";
@@ -89,21 +89,7 @@ export default function Contact() {
               ))}
             </div>
           </div>
-          {/* Framer keeps the (now empty) Framer form container around the HubSpot embed, with its
-              appear animation. The embed box is wider than the card (117% / 112% / 133%) and centred. */}
-          <Appear
-            as="form"
-            className={s.form}
-            data-framer-name="Form"
-            initial={{ opacity: 0.001, y: 36 }}
-            spring={{ stiffness: 400, damping: 50, delay: 1.2 }}
-          >
-            <div className={s.inputs} data-framer-name="Inputs">
-              <div className={s.embed}>
-                <HubSpotForm region="ap1" portalId="442278519" formId="8b0a9d02-cee6-417f-a608-52e77c0ec384" />
-              </div>
-            </div>
-          </Appear>
+          <ContactForm />
         </div>
       </div>
     </section>
