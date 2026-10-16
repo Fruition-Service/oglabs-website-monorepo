@@ -9,6 +9,7 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import type { CSSProperties, ReactNode } from "react"
 import SOLUTIONS_JSON from "./solutions.json"
+import { trackConversion } from "@/lib/measurement"
 
 /**
  * OG Labs Solution Finder
@@ -619,6 +620,7 @@ export default function SolutionFinder(props: Props) {
                 }
             )
             if (res.ok) {
+                trackConversion("generate_lead", { form: "solution_finder", page: window.location.pathname })
                 setStatus("sent")
                 return
             }
