@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import "./globals.css";
 import { SITE_URL, DEFAULT_TITLE, DEFAULT_DESCRIPTION, OG_IMAGE } from "@/lib/site";
+import { MeasurementListener } from "@/components/measurement/MeasurementListener";
+import { MeasurementBodyStart, MeasurementHead } from "@/components/measurement/MeasurementTags";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -20,8 +22,14 @@ export const viewport: Viewport = { width: "device-width" };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" dir="ltr">
+      <head>
+        {/* GA4, Tag Manager, Clarity, Cloudflare Web Analytics: src/lib/measurement.ts */}
+        <MeasurementHead />
+      </head>
       <body>
+        <MeasurementBodyStart />
         {children}
+        <MeasurementListener />
         {/* HubSpot tracking (Framer "bodyEnd" snippet mA7QqaneL, same src). It sets the hutk cookie the
             Solution Finder sends and captures non-HubSpot forms. Skipped on preview hosts so test
             visits never land in HubSpot. */}

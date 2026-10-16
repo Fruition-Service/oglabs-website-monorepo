@@ -6,6 +6,7 @@
 // as on Framer. The hidden honeypot inputs are Framer's; a filled honeypot is never sent.
 import { useState, type FormEvent } from "react";
 import s from "./NewsletterForm.module.css";
+import { track } from "@/lib/measurement";
 
 export const NEWSLETTER_ACTION = "https://api.framer.com/forms/v1/forms/a3f2477d-af4e-4d8e-b250-ca504340d930/submit";
 const FRAMER_SITE_ID = "13a82e52233268a4d6d76bac5d848262f6b97e293aab7c7823bae336f017699e";
@@ -34,6 +35,8 @@ export default function NewsletterForm() {
         headers: { "framer-site-id": FRAMER_SITE_ID, "framer-form-fields": "Email" },
       });
       setState(res.ok ? "Success" : "Error");
+      // A newsletter sign-up, not a sales lead: kept out of generate_lead on purpose.
+      if (res.ok) track("sign_up", { method: "newsletter", page: window.location.pathname });
     } catch {
       setState("Error");
     }

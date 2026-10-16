@@ -17,6 +17,7 @@
 // NEVER submit this with test data: every POST is a real lead and an email to the founder. Test by
 // intercepting https://api.hsforms.com/** with Playwright page.route.
 import Link from "next/link";
+import { trackConversion } from "@/lib/measurement";
 import { motion } from "motion/react";
 import { useState, type FormEvent, type KeyboardEvent } from "react";
 import Txt from "@/components/about/Txt";
@@ -102,6 +103,7 @@ export default function ContactForm() {
     try {
       const res = await fetch(SUBMIT_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
       setState(res.ok ? "success" : "error");
+      if (res.ok) trackConversion("generate_lead", { form: "contact", page: window.location.pathname });
       if (!res.ok) console.error("HubSpot form submission failed", res.status, await res.text().catch(() => ""));
     } catch (e) {
       setState("error");
