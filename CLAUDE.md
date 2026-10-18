@@ -44,8 +44,14 @@ npm run build
 - **Never submit a real form**, in tests or by hand: every POST to HubSpot is a real lead and an
   email to the founder. Intercept with Playwright `page.route()`.
 - **HTTPS, `orangegrowth.io` → oglabs.io redirects live in the Cloudflare Worker** in front of
-  Vercel, not in Vercel config. The Worker's source is not in git. `www.oglabs.io` is served too;
-  canonicals point at `https://oglabs.io`.
+  Vercel, not in Vercel config. The Worker is `oglabs-vercel-proxy` in the Fruition Services
+  Cloudflare account; its source is `cloudflare/oglabs-vercel-proxy/worker.js` (deployed by hand,
+  not by CI). `www.oglabs.io` is served too; canonicals point at `https://oglabs.io`.
+- **The Worker must never rewrite HTML bodies.** Until 18 Oct 2026 it string-replaced
+  `www.oglabs.io` in every page. That shortened a length-prefixed React Server Components chunk
+  (`2:T551,...` holding the measurement snippet), so React refused to hydrate and every animated
+  heading stayed at opacity 0: the site looked blank. Bodies now stream through untouched; only
+  redirect `Location` headers are canonicalized.
 - `nextjs/qa/*.mjs` loads Playwright from the Fruition website checkout by absolute path.
 
 ## Rollback
