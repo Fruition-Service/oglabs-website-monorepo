@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import FramerImage from "./FramerImage";
-import { LINKEDIN_MASK, TEAM_MARK } from "./art";
+import { LINKEDIN_MASK, TEAM_MARK, WEBSITE_MASK } from "./art";
 import a from "./About.module.css";
 import s from "./TeamMember.module.css";
 
@@ -11,6 +11,8 @@ export type Member = {
   position: string;
   picture: { src: string; width: number; height: number; alt: string };
   linkedIn?: string;
+  /** Personal website, shown as a globe tile under the LinkedIn tile. */
+  website?: string;
   upsideDown?: boolean;
 };
 
@@ -41,8 +43,13 @@ export default function TeamMember({ member }: { member: Member }) {
       <div className={s.info} data-framer-name="Information">
         <div className={s.socials} data-framer-name="Socials">
           {member.linkedIn ? (
-            <a className={s.social} data-framer-name="Desktop" href={member.linkedIn} target="_blank">
+            <a className={s.social} data-framer-name="Desktop" href={member.linkedIn} target="_blank" aria-label={`${member.name} on LinkedIn`}>
               <div className={s.icon} style={{ mask: LINKEDIN_MASK, WebkitMask: LINKEDIN_MASK }} />
+            </a>
+          ) : null}
+          {member.website ? (
+            <a className={s.social} href={member.website} target="_blank" rel="noopener" aria-label={`${member.name}'s website`}>
+              <div className={s.icon} style={{ mask: WEBSITE_MASK, WebkitMask: WEBSITE_MASK }} />
             </a>
           ) : null}
         </div>
