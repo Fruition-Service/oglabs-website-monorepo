@@ -20,5 +20,6 @@ export type PostSummary = {
 export type Post = PostSummary & {
   /** Body HTML (plain semantic tags, no classes), rendered through the rich-text styles. */
   html: string;
-  source: "framer" | "hubspot";
+  /** framer: kept in the repo; hubspot: HubSpot CMS; pipeline: the OG Labs content portal (src/lib/pipeline.ts). */
+  source: "framer" | "hubspot" | "pipeline";
 };

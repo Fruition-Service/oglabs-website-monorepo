@@ -1,10 +1,12 @@
-// The blog's data layer. Two sources, merged:
+// The blog's data layer. Three sources, merged:
 //
 //   1. Legacy posts written directly in Framer, now kept in the repo (src/content/posts, LEGACY_POSTS).
 //   2. Published HubSpot posts (portal 442278519), fetched live and cached for 5 minutes under the
 //      "blog" tag (src/lib/hubspot.ts), so a new HubSpot post shows up without a redeploy.
+//   3. Posts approved in the OG Labs content portal (oglabs.io/internal), read from its feed under
+//      the same tag (src/lib/pipeline.ts). The portal never reuses a slug from 1 or 2.
 //
-// HubSpot wins on a slug collision. If HubSpot is not configured or unreachable, the Framer copies
+// HubSpot wins on a slug collision, then the repo, then the portal. If HubSpot is not configured or unreachable, the Framer copies
 // of the HubSpot posts (HUBSPOT_FALLBACK_POSTS) stand in, so a build or render never breaks.
 //
 // Ordering matches Framer's CMS queries: every list is newest "Published Date" first. The /blogs
@@ -15,6 +17,7 @@ import { cache } from "react";
 import type { Post, PostSummary } from "./blog-types";
 import { fetchHubSpotPosts, blockedSlugs, type HubSpotBlogPost } from "./hubspot";
 import { LEGACY_POSTS, HUBSPOT_FALLBACK_POSTS } from "@/content/posts";
+import { fetchPipelinePosts } from "./pipeline";
 
 const FRAMER_COPIES: Post[] = [...LEGACY_POSTS, ...HUBSPOT_FALLBACK_POSTS];
 
@@ -62,18 +65,26 @@ function fromHubSpot(h: HubSpotBlogPost): Post {
   };
 }
 
+/** A portal post by a known author shows the picture and position Framer showed for them. */
+function withAuthor(p: Post): Post {
+  const author = AUTHORS.get(p.authorName.trim().toLowerCase());
+  return author ? { ...p, ...author } : p;
+}
+
 function byDateDesc(a: { publishedAt: string }, b: { publishedAt: string }): number {
   return Date.parse(b.publishedAt) - Date.parse(a.publishedAt);
 }
 
 /** Every live post with its body, newest first. Deduplicated per request. */
 const getAllPosts = cache(async (): Promise<Post[]> => {
-  const hubspot = await fetchHubSpotPosts();
+  const [hubspot, pipeline] = await Promise.all([fetchHubSpotPosts(), fetchPipelinePosts()]);
   const blocked = blockedSlugs();
   const live = hubspot ? hubspot.map(fromHubSpot) : HUBSPOT_FALLBACK_POSTS;
   const liveSlugs = new Set(live.map((p) => p.slug));
   const legacy = LEGACY_POSTS.filter((p) => !liveSlugs.has(p.slug));
-  return [...live, ...legacy].filter((p) => !blocked.includes(p.slug)).sort(byDateDesc);
+  const taken = new Set([...liveSlugs, ...legacy.map((p) => p.slug)]);
+  const portal = pipeline.filter((p) => !taken.has(p.slug)).map(withAuthor);
+  return [...live, ...legacy, ...portal].filter((p) => !blocked.includes(p.slug)).sort(byDateDesc);
 });
 
 function summary(p: Post): PostSummary {

@@ -52,6 +52,20 @@ publishDate fallback, cover = featured image else first body image) are ported f
 |---|---|---|
 | `HUBSPOT_TOKEN` | all | Blog posts from HubSpot (falls back to repo copies without it) |
 | `SITE_NOINDEX=1` | preview hosts only | `noindex` meta, `robots.txt` disallow, no HubSpot tracking script |
+| `CONTENT_FEED_TOKEN` | production | Posts approved in the content portal (`src/lib/pipeline.ts`); equals the portal's `SITE_FEED_TOKEN`. Without it the blog shows Framer and HubSpot posts only |
+| `REVALIDATE_SECRET` | production | Bearer for `POST /api/revalidate`, which the portal calls on approve, edit and unpublish; equals the portal's `SITE_REVALIDATE_SECRET` |
+| `CONTENT_PORTAL_ORIGIN` | optional | The portal's own origin, default `https://oglabs-content-kelin-studio.vercel.app` |
+
+## Content portal (oglabs.io/internal)
+
+The blog's third source. `oglabs.io/internal`, `/api/internal/*`, `/blog-media/*` and
+`/content-assets/*` are rewritten (`next.config.ts`) to the Vercel project `oglabs-content`
+(Kelin Studio team): the `oglabs` build of `Kelin-Studio/kelin-content` (`CONTENT_BRAND=oglabs`),
+the same portal that runs app.kelin.studio and groovesheet.net/internal. It drafts posts from the
+HubSpot, ClickUp and AI automation news twice a week, holds them for review, and on approval lists
+them in its feed and calls `/api/revalidate` here; LinkedIn, Facebook, Instagram and Pinterest
+captions go out once the post answers 200. Voice, news sources, money pages and categories live
+in that repo's `scripts/brands/oglabs.json`. Sign-in is the portal's `INTERNAL_PASSWORD`.
 
 ## Hosting
 

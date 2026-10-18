@@ -32,6 +32,9 @@ npm run build
   Framer-only posts in `src/content/posts/`. Keep the field-mapping rules in `hubspot.ts` (title is
   `name`, author from `blogAuthorId`, never `authorName`; images via the `/hub/<portal>/hubfs/?width=`
   resize). Env on Vercel: `HUBSPOT_TOKEN`.
+- Blog, third source: the content portal at `/internal` (rewritten to Vercel project `oglabs-content`,
+  the `oglabs` build of `Kelin-Studio/kelin-content`). Its posts come from `src/lib/pipeline.ts`; a feed
+  failure must never throw. `/internal`, `/api/internal`, `/blog-media` and `/content-assets` belong to it.
 - Forms post to HubSpot form 8b0a9d02 (fields: firstname, lastname, email, company (required), phone,
   website_form_submission). The footer newsletter still posts to the Framer forms endpoint.
 

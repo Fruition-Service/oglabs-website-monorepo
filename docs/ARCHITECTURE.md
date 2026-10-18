@@ -178,6 +178,11 @@ Breakpoints are Framer's: desktop ≥ 1200px, tablet 810 to 1199.98px, phone ≤
   ported (title is `name`; author comes from `blogAuthorId`, never `authorName`, which is the last
   editor; `publishDate` can be the 1970 epoch). `BLOG_BLOCKED_SLUGS` mirrors the sync Worker's
   block list. This removes Framer from the blog path entirely.
+- **Blog, third source (18 Oct 2026)**: posts approved in the OG Labs content portal at
+  `oglabs.io/internal` (`src/lib/pipeline.ts`, `CONTENT_FEED_TOKEN`, same `blog` tag). The portal is
+  the `oglabs` build of `Kelin-Studio/kelin-content` (Vercel project `oglabs-content`), served here by
+  the rewrites in `next.config.ts`; it calls `POST /api/revalidate` (`REVALIDATE_SECRET`) on approve,
+  edit and unpublish. See `nextjs/README.md`, "Content portal".
 - **Forms**: the Solution Finder posts to HubSpot Forms. The footer newsletter still posts to the
   Framer Forms API, which must be replaced before Framer is switched off.
 
