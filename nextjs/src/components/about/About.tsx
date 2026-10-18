@@ -64,6 +64,14 @@ const TEAM: (Member & { delay: number })[] = [
     upsideDown: true,
     delay: 0,
   },
+  {
+    name: "Edward Zhang",
+    position: "Design Lead",
+    picture: { src: "/team/edward-zhang.jpg", width: 960, height: 960, alt: "Edward Zhang" },
+    linkedIn: "https://www.linkedin.com/in/edwardzehuazhang",
+    website: "https://edwardzehuazhang.com",
+    delay: 0,
+  },
 ];
 
 function Divider() {
